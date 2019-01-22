@@ -41,19 +41,22 @@ class Summarizer:
         for index, score in self.create_sentences_frequency_dict()[:length_of_summary]:
             output.append(index)
 
-        output = sorted(output)
-
+        # output = sorted(output)
+        
         with open(file_write, "w") as f:
-            f.write(os.linesep.join([self.sentences[i] for i in sorted(output)]))
+            f.write(os.linesep.join([self.sentences[i] for i in output]))
 
-    def extract_keywords(self, file_read, file_write, keywords=1):
+    def extract_keywords(self, file_read, file_write, keywords=0):
         self.process_text(file_read)
         self.create_words_frequency_dict()
 
         sorted_words = sorted(self.scored_words.items(), key=operator.itemgetter(1), reverse=True)
 
+        if keywords == 0:
+            keywords = len(sorted_words)
+
         with open(file_write, "w") as f:
-            f.write(", ".join([self.whole_words[stem] for stem, score in sorted_words[:keywords]]))
+            f.write(os.linesep.join([self.whole_words[stem] for stem, score in sorted_words[:keywords]]))
 
     def create_words_frequency_dict(self):
         self.scored_words = {}
@@ -81,10 +84,10 @@ class Summarizer:
 
 
 summarizer = Summarizer()
-summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt")
-summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt")
-summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt")
+summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
+summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
+summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt", 100)
 
-summarizer.extract_keywords("summaries/literature.txt", "summaries/literature-keywords.txt", 5)
-summarizer.extract_keywords("summaries/science.txt", "summaries/science-keywords.txt", 5)
-summarizer.extract_keywords("summaries/sports.txt", "summaries/sports-keywords.txt", 5)
+summarizer.extract_keywords("summaries/literature.txt", "summaries/literature-keywords.txt")
+summarizer.extract_keywords("summaries/science.txt", "summaries/science-keywords.txt")
+summarizer.extract_keywords("summaries/sports.txt", "summaries/sports-keywords.txt")
