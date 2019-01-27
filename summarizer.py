@@ -65,7 +65,7 @@ class Summarizer:
                 if chunked_sentence:
                     for chunk, pos_tag in chunked_sentence.items():
                         if pos_tag == "NM":
-                            sentence = sentence.replace(chunk, "____" * len(chunk))
+                            sentence = sentence.replace(chunk, "__" * len(chunk))
                 sentences.append(sentence)
 
         with open(file_write, "w") as f:
