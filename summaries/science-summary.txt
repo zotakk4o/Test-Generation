@@ -1,19 +1,33 @@
-Insects or ______________  are hexapod invertebrates and the largest group within the arthropod phylum.
-Insects have a chitinous exoskeleton, a three-part body , three pairs of jointed legs, compound eyes and one pair of antennae.
-Insects are the most diverse group of animals; they include more than a million described species and represent more than half of all known living organisms.
-The total number of extant species is estimated at between six and ten million; potentially over 90% of the animal life forms on Earth are insects.
-Insects may be found in nearly all environments, although only a small number of species reside in the oceans, which are dominated by another arthropod group, crustaceans.
-____________ growth is constrained by the inelastic exoskeleton and development involves a series of molts.
-Insects that undergo three-stage metamorphosis lack a pupal stage and adults develop through a series of nymphal stages.
-____________________ insects of enormous size have been found from the __________________________, including giant dragonflies with wingspans of 55 to 70 cm .
-The most diverse insect groups appear to have coevolved with flowering plants.
-__________ insects typically move about by walking, flying, or sometimes swimming.
-As it allows for rapid yet stable movement, many insects adopt a tripedal gait in which they walk with their legs touching the ground in alternating triangles, composed of the front & rear on one side with the middle on the other side.
-Insects are the only invertebrates to have evolved flight, and all flying insects derive from one common ancestor.
-Many insects spend at least part of their lives under water, with larval adaptations that include gills, and some adult insects are aquatic and have adaptations for swimming.
-Insects are mostly solitary, but some, such as certain bees, ants and termites, are social and live in large, well-organized colonies.
-Humans regard certain insects as pests, and attempt to control them using insecticides, and a host of other techniques.
-Some insects perform complex ecological roles; blow-flies, for example, help consume carrion but also spread diseases.
-Insect pollinators are essential to the life cycle of many flowering plant species on which most organisms, including humans, are at least partly dependent; without them, the terrestrial portion of the biosphere would be devastated.
-Many insects are considered ecologically beneficial as predators and a few provide direct economic benefit.
-Insects are consumed as food in 80% of the world's nations, by people in roughly 3000 ethnic groups.
+Insects or _______  _________________________ and the largest group within the arthropod phylum.
+Definitions and _____________________; usually, insects comprise a class within ______________.
+As used here, the term _______ is synonymous with Ectognatha.
+____________ _______________________, a three-part body , three pairs of jointed legs, compound eyes and one pair of antennae.
+___________ the most _____________ of animals; they include more than a million described species and represent more than half of all known living organisms.
+________________ of extant species is estimated at ___________________________; potentially over 90% of the animal life forms on Earth are insects.
+Insects may be found in nearly all environments, although only ______________ of ______________ in the oceans, which are dominated by another arthropod group, crustaceans.
+Nearly all _____________ from eggs.
+______ _________ constrained by the inelastic exoskeleton and development involves a series of molts.
+The immature stages often differ from the adults in structure, habit and habitat, and can _____________________________ in those groups that undergo four-stage metamorphosis.
+Insects that ______________________________________ a pupal stage and adults develop through a series of nymphal stages.
+_____________________________ of the __________ unclear.
+__________ insects of _____________ have been found from the Paleozoic Era, including giant dragonflies with wingspans of 55 to 70 cm .
+The most _____________________ appear to have coevolved with flowering plants.
+_____ insects typically move about by walking, flying, or sometimes swimming.
+As it allows for rapid yet _______________, many insects _____________________ in which they walk with their legs touching the ground in alternating triangles, composed of the front & rear on one side with the middle on the other side.
+___________ ______________________ to have evolved flight, and all flying insects derive from one common ancestor.
+____________ spend at least part of their lives under water, with larval adaptations that include gills, and some adult ___________ aquatic and have adaptations for swimming.
+Some species, such as water striders, are capable of walking on the surface of water.
+___________ mostly solitary, but some, such as ____________, ants and termites, are social and live in large, well-organized colonies.
+Some insects, such as earwigs, __________________, guarding their eggs and young.
+Insects can communicate with each other in a variety of ways.
+__________ can sense the pheromones of female moths over great distances.
+_____________ communicate with sounds: ___________________, or rub their wings together, to attract a mate and repel other males.
+________________ communicate with light.
+_____________ _______________ as pests, and attempt to control them using insecticides, and a host of other techniques.
+Some ______________ crops by feeding on sap, leaves, fruits, or wood.
+Some ___________ parasitic, and may vector diseases.
+Some _______________ complex ________________; blow-flies, for example, help consume carrion but also spread diseases.
+__________________ are essential to the life cycle of many flowering plant species on which most organisms, including humans, are at least partly dependent; without them, the terrestrial portion of the biosphere would be devastated.
+____________ are considered ecologically beneficial as predators and a few provide direct economic benefit.
+_________________ silk and honey bees produce honey and both have been domesticated by humans.
+___________ consumed as food _____% of the world's nations, by people in roughly 3000 ethnic groups.

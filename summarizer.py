@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from nltk import tag
 from string import punctuation
 
+import json
 import os
 import operator
 import re
@@ -63,9 +64,13 @@ class Summarizer:
                 sentence = self.sentences[index]
                 chunked_sentence = self.chunk_sentence(sentence)
                 if chunked_sentence:
+                    chunks_removed = []
+                    print(enumerate(chunked_sentence.values()))
                     for chunk, pos_tag in chunked_sentence.items():
-                        if pos_tag == "NM":
-                            sentence = sentence.replace(chunk, "__" * len(chunk))
+                        if pos_tag not in chunks_removed and len(chunks_removed) <= 1:
+                            sentence = sentence.replace(chunk, "_" * len(chunk))
+                            chunks_removed.append(pos_tag)
+
                 sentences.append(sentence)
 
         with open(file_write, "w") as f:
@@ -110,18 +115,21 @@ class Summarizer:
         sentence = word_tokenize(sentence)
         tagged = tag.pos_tag(sentence)
 
-        grammar = """
-            NM: {<NNP>{1,3}}
-            NP: {<DT>*<JJ><NN.*>+}     #Chunk Noun Phrases
-            VP: {<VB.*><NP>}           #Chunk Verb Phrases
-            PR: {<IN><CD><TO><CD>}     #Chunk Periods(from...to...)           
-        """
-        cp = nltk.RegexpParser(grammar)
+        grammar = {
+            "NM": "{<DT>*<NNP>{1,3}}",
+            "LNM": "{<NM>(<,>*<CC>*<NM>)+}",
+            "NP": "{<DT>*<JJ.*><NN.*>+}",
+            "VP": "{<VB.*><NP>|<NN.*><VB.*>}",
+            "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}"
+        }
+        grammar_string = re.sub("(?<=}),", os.linesep, json.dumps(grammar)[1:-1].replace("\"", ""))
+
+        cp = nltk.RegexpParser(grammar_string)
         parsed_sentence = cp.parse(tagged)
 
         results = {}
 
-        for subtree in parsed_sentence.subtrees(filter=lambda t: t.label() in ["NP", "VP", "PR", "NM"]):
+        for subtree in parsed_sentence.subtrees(filter=lambda t: t.label() in grammar.keys()):
             items = []
             for item in subtree.leaves():
                 items.append(item[0])
@@ -133,9 +141,9 @@ class Summarizer:
 curr = time.time()
 summarizer = Summarizer()
 
-summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt")
-summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt")
-summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt")
-summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt")
+summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt", 100)
+#summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
+summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
+summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt", 100)
 
 print(time.time() - curr)
