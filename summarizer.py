@@ -23,6 +23,7 @@ class Summarizer:
         self.whole_words = {}
         self.stop_words = stopwords.words("english") + list(punctuation) + ["'s", "'ve", "'ll", "'d", "'t", "'m", "“",
                                                                             "’", "”", ";", "“"]
+        self.prioritized_chunks = ["LNM", "NB", "NM", "NP", "VP"]
 
     def process_text(self, file_name):
         with open(file_name, 'r') as f:
@@ -65,13 +66,13 @@ class Summarizer:
                 chunked_sentence = self.chunk_sentence(sentence)
                 if chunked_sentence:
                     chunks_removed = []
-                    print(enumerate(chunked_sentence.values()))
-                    for chunk, pos_tag in chunked_sentence.items():
-                        if pos_tag not in chunks_removed and len(chunks_removed) <= 1:
-                            sentence = sentence.replace(chunk, "_" * len(chunk))
-                            chunks_removed.append(pos_tag)
+                    for chunk_name in self.prioritized_chunks:
+                        for chunk, pos_tag in chunked_sentence.items():
+                            if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
+                                sentence = sentence.replace(chunk, "_" * len(chunk))
+                                chunks_removed.append(chunk)
 
-                sentences.append(sentence)
+                sentences.append(sentence + "GAPS => " + json.dumps(chunks_removed))
 
         with open(file_write, "w") as f:
             f.write(os.linesep.join([sentence for sentence in sentences]))
@@ -111,13 +112,16 @@ class Summarizer:
     def format_word(self, word):
         return self.ps.stem(word.lower())
 
+    def is_period_or_date(self, number):
+        return len(re.findall("[0-9]+", number)) > 0
+
     def chunk_sentence(self, sentence):
         sentence = word_tokenize(sentence)
         tagged = tag.pos_tag(sentence)
 
         grammar = {
-            "NM": "{<DT>*<NNP>{1,3}}",
-            "LNM": "{<NM>(<,>*<CC>*<NM>)+}",
+            "NM": "{<DT>*<NNP>{1,4}}",
+            "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)+}",
             "NP": "{<DT>*<JJ.*><NN.*>+}",
             "VP": "{<VB.*><NP>|<NN.*><VB.*>}",
             "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}"
@@ -142,7 +146,7 @@ curr = time.time()
 summarizer = Summarizer()
 
 summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt", 100)
-#summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
+summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
 summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
 summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt", 100)
 

@@ -1,31 +1,31 @@
-____________ , also known as the Second World War, ________________ that lasted from 1939 to 1945.
-_________________ of the world's countries—including all the great powers—eventually formed two ___________________________: the Allies and the Axis.
-A state of _________ emerged, directly involving more ________________ people from over 30 countries.
-______________________ threw their entire economic, industrial, and scientific capabilities behind the war effort, blurring the distinction between civilian and military resources.
-____________ __________________________ in human history, marked by 50 to 85 million fatalities, most of whom were civilians in the Soviet Union and China.
-It included massacres, the genocide of _____________, _________________, premeditated death from starvation and disease, and the only use of nuclear weapons in war.
-_____, which aimed to dominate ____________________, was at war with China by 1937, though neither side had declared war on the other.
-____________ is generally said to have begun ___________________, with the invasion of Poland by Germany and subsequent declarations on Germany by France and the United Kingdom.
-From late 1939 to early 1941, in a series of campaigns and treaties, _______ conquered or controlled much of continental Europe, and formed the Axis alliance with _______________.
-Under ___________________________ of August 1939, ____________________________ partitioned and annexed territories of their European neighbours, Poland, Finland, Romania and the Baltic states.
-Following the onset of campaigns in ____________________________, and the fall of France in mid 1940, the war continued primarily between the European Axis powers and the British Empire.
-___ in the Balkans, the aerial Battle of Britain, the Blitz, and the long Battle of the Atlantic followed.
-_______________, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history.
-This Eastern _____ trapped the Axis, most crucially the German Wehrmacht, into a war of attrition.
-In ________ 1941, Japan launched a surprise attack on the United States and _________________ in the Pacific.
-Following an immediate ____ declaration of war against Japan, supported ______ from Great Britain, the European Axis powers quickly declared war on the ____ in solidarity with their Japanese ally.
-Rapid __________________ over much of ___________________ ensued, perceived by many in Asia as liberation from Western dominance and resulting in the support of several armies from defeated territories.
-________ advance in the Pacific halted _______ when Japan lost the critical Battle of Midway; later, Germany and Italy were defeated in North Africa and then, decisively, at Stalingrad in the Soviet Union.
-____________ _______, which included a series of German defeats on the Eastern Front, the Allied invasions of Sicily and Italy, and Allied victories in the Pacific, cost the Axis its initiative and forced it into strategic retreat on all fronts.
-_______, __________________ invaded German-occupied France, while the Soviet Union regained its territorial losses and turned toward Germany and its allies.
-____________________ the _________________ major reverses in mainland Asia in Central China, South China and Burma, while the Allies crippled the Japanese Navy and captured key Western Pacific islands.
-The war in ______ concluded with an invasion of Germany by __________________ and the Soviet Union, culminating in the capture of Berlin by Soviet troops, the suicide of Adolf Hitler and the German unconditional surrender on 8 May 1945.
-Following _______________________ by the Allies _______________ and the refusal of Japan to surrender under its terms, the United States dropped atomic bombs on the Japanese cities of Hiroshima and Nagasaki on 6 and 9 August respectively.
-With an invasion of the _____ese ____________________, the possibility of additional atomic bombings, the Soviet entry into the war against _____ and its invasion of Manchuria, _____ announced its intention to surrender on 15 August 1945, cementing total victory in Asia for the Allies.
-______________ set up by fiat by the Allies and war crimes trials were conducted in the wake of the war both against the Germans and the Japanese.
-____________ _______________________________ and social structure of the globe.
-__________________  was established to _________________________________ and prevent future conflicts; the victorious great powers—China, France, the Soviet Union, the United Kingdom, and the United States—became the permanent members of its Security Council.
-___________________________ States emerged as rival superpowers, setting the stage for the nearly half-century long Cold War.
-In the wake of ____________________, the influence of its great powers waned, triggering the decolonisation of _______________.
-______________ whose ______________ been damaged moved towards economic recovery and expansion.
-_____________________, especially in ______, emerged as an effort to end pre-war enmities and create a common identity.
+____________ , also known as the Second World War, was a global war that lasted _________________.GAPS => ["from 1939 to 1945", "World War II"]
+_________________ of the world's countries—including all the great powers—eventually formed two opposing military alliances: the Allies and ________.GAPS => ["the Axis", "The vast majority"]
+A state of total war emerged, directly involving more ________________ people from _______ countries.GAPS => ["than 100 million", "over 30"]
+______________________ threw their entire economic, industrial, and _______________________ behind the war effort, blurring the distinction between civilian and military resources.GAPS => ["The major participants", "scientific capabilities"]
+World War II was the deadliest conflict in human history, marked ___________________ fatalities, most of whom were civilians in __________________________.GAPS => ["the Soviet Union and China", "by 50 to 85 million"]
+It included massacres, the genocide of _____________, _________________, premeditated death from starvation and disease, and the only use of nuclear weapons in war.GAPS => ["the Holocaust", "strategic bombing"]
+Japan, which aimed to dominate ____________________, was at war with China _______, though neither side had declared war on the other.GAPS => ["Asia and the Pacific", "by 1937"]
+World War II is generally said to have begun ___________________, with the invasion of Poland by Germany and subsequent declarations on Germany by _____________________________.GAPS => ["France and the United Kingdom", "on 1 September 1939"]
+From late 1939 to early 1941, in a series of campaigns and treaties, _______ conquered or controlled much of continental Europe, and formed the Axis alliance with _______________.GAPS => ["Italy and Japan", "Germany"]
+Under the Molotov–Ribbentrop Pact of August 1939, ____________________________ partitioned and annexed territories of their European neighbours, Poland, Finland, Romania and the Baltic states.GAPS => ["Germany and the Soviet Union", "Poland , Finland , Romania and the Baltic"]
+Following the onset of campaigns in ____________________________, and the fall of France in mid 1940, the war continued primarily between the European Axis powers and the British Empire.GAPS => ["North Africa and East Africa", "North Africa"]
+___ in the Balkans, the aerial Battle of Britain, the Blitz, and the long Battle of the Atlantic followed.GAPS => ["Britain , the Blitz", "War"]
+_______________, the European Axis powers launched an invasion of the Soviet Union, opening the largest land theatre of war in history.GAPS => ["On 22 June 1941", "June"]
+This Eastern _____ trapped ________, most crucially the German Wehrmacht, into a war of attrition.GAPS => ["Front", "the Axis"]
+In ________ 1941, _____ launched a surprise attack on the United States and European colonies in the Pacific.GAPS => ["December", "Japan"]
+Following an immediate U.S. declaration of war against Japan, supported ______ from Great Britain, the European Axis powers quickly declared war on the U.S. in solidarity with their Japanese ally.GAPS => ["Great Britain , the European Axis", "by one"]
+Rapid Japanese conquests over much of ___________________ ensued, perceived by many in ____ as liberation from Western dominance and resulting in the support of several armies from defeated territories.GAPS => ["the Western Pacific", "Asia"]
+The Axis advance in the Pacific halted _______ when Japan lost the critical Battle of Midway; later, _________________ were defeated in North Africa and then, decisively, at Stalingrad in the Soviet Union.GAPS => ["Germany and Italy", "in 1942"]
+Key setbacks in 1943, which included a series of German defeats on the Eastern Front, the Allied invasions of Sicily and Italy, and Allied victories in the Pacific, cost the Axis its initiative and forced it into strategic retreat on all fronts.GAPS => ["the Eastern Front , the Allied", "Sicily and Italy , and Allied"]
+_______, the Western Allies invaded German-occupied ______, while the Soviet Union regained its territorial losses and turned toward Germany and its allies.GAPS => ["In 1944", "France"]
+____________________ the Japanese suffered major reverses in mainland Asia in Central China, South China and Burma, while the Allies crippled the Japanese Navy and captured key Western Pacific islands.GAPS => ["Central China , South China and Burma", "During 1944 and 1945"]
+The war in ______ concluded with an invasion of Germany by the Western Allies and the Soviet Union, culminating in the capture of Berlin by Soviet troops, the suicide of Adolf Hitler and the German unconditional surrender _____________.GAPS => ["on 8 May 1945", "Europe"]
+Following the Potsdam Declaration by the Allies _______________ and the refusal of Japan to surrender under its terms, the United States dropped atomic bombs on the Japanese cities of ______________________ on 6 and 9 August respectively.GAPS => ["Hiroshima and Nagasaki", "on 26 July 1945"]
+With an invasion of the Japanese archipelago imminent, the possibility of additional atomic bombings, the Soviet entry into the war against Japan and its invasion of Manchuria, Japan announced its intention to surrender _________________, cementing total victory in Asia for the Allies.GAPS => ["Manchuria , Japan", "on 15 August 1945"]
+______________ set up by fiat by the Allies and war crimes ___________ conducted in the wake of the war both against the Germans and the Japanese.GAPS => ["Tribunals were", "trials were"]
+____________ changed _______________________ and social structure of the globe.GAPS => ["World War II", "the political alignment"]
+__________________  was established to foster international co-operation and prevent future conflicts; the victorious great powers—China, France, the Soviet Union, the United Kingdom, and the United States—became the permanent members of its Security Council.GAPS => ["France , the Soviet Union , the United Kingdom , and the United States\u2014became", "The United Nations"]
+___________________________ States emerged as rival superpowers, setting the stage for the nearly half-century long Cold War.GAPS => ["The Soviet Union and United", "The Soviet Union"]
+In the wake of European devastation, the influence of its great powers waned, triggering the decolonisation of _______________.GAPS => ["Africa and Asia", "Africa"]
+______________ whose industries had been damaged moved towards _________________ and expansion.GAPS => ["Most countries", "economic recovery"]
+_____________________, especially in ______, emerged as an effort to end pre-war enmities and create a common identity.GAPS => ["Europe", "Political integration"]

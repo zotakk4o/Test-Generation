@@ -1,33 +1,33 @@
-Insects or _______  _________________________ and the largest group within the arthropod phylum.
-Definitions and _____________________; usually, insects comprise a class within ______________.
-As used here, the term _______ is synonymous with Ectognatha.
-____________ _______________________, a three-part body , three pairs of jointed legs, compound eyes and one pair of antennae.
-___________ the most _____________ of animals; they include more than a million described species and represent more than half of all known living organisms.
-________________ of extant species is estimated at ___________________________; potentially over 90% of the animal life forms on Earth are insects.
-Insects may be found in nearly all environments, although only ______________ of ______________ in the oceans, which are dominated by another arthropod group, crustaceans.
-Nearly all _____________ from eggs.
-______ _________ constrained by the inelastic exoskeleton and development involves a series of molts.
-The immature stages often differ from the adults in structure, habit and habitat, and can _____________________________ in those groups that undergo four-stage metamorphosis.
-Insects that ______________________________________ a pupal stage and adults develop through a series of nymphal stages.
-_____________________________ of the __________ unclear.
-__________ insects of _____________ have been found from the Paleozoic Era, including giant dragonflies with wingspans of 55 to 70 cm .
-The most _____________________ appear to have coevolved with flowering plants.
-_____ insects typically move about by walking, flying, or sometimes swimming.
-As it allows for rapid yet _______________, many insects _____________________ in which they walk with their legs touching the ground in alternating triangles, composed of the front & rear on one side with the middle on the other side.
-___________ ______________________ to have evolved flight, and all flying insects derive from one common ancestor.
-____________ spend at least part of their lives under water, with larval adaptations that include gills, and some adult ___________ aquatic and have adaptations for swimming.
-Some species, such as water striders, are capable of walking on the surface of water.
-___________ mostly solitary, but some, such as ____________, ants and termites, are social and live in large, well-organized colonies.
-Some insects, such as earwigs, __________________, guarding their eggs and young.
-Insects can communicate with each other in a variety of ways.
-__________ can sense the pheromones of female moths over great distances.
-_____________ communicate with sounds: ___________________, or rub their wings together, to attract a mate and repel other males.
-________________ communicate with light.
-_____________ _______________ as pests, and attempt to control them using insecticides, and a host of other techniques.
-Some ______________ crops by feeding on sap, leaves, fruits, or wood.
-Some ___________ parasitic, and may vector diseases.
-Some _______________ complex ________________; blow-flies, for example, help consume carrion but also spread diseases.
-__________________ are essential to the life cycle of many flowering plant species on which most organisms, including humans, are at least partly dependent; without them, the terrestrial portion of the biosphere would be devastated.
-____________ are considered ecologically beneficial as predators and a few provide direct economic benefit.
-_________________ silk and honey bees produce honey and both have been domesticated by humans.
-___________ consumed as food _____% of the world's nations, by people in roughly 3000 ethnic groups.
+Insects or _______  are _____________________ and the largest group within the arthropod phylum.GAPS => ["Insecta", "hexapod invertebrates"]
+Definitions and _____________________; usually, insects comprise a class within ______________.GAPS => ["the Arthropoda", "circumscriptions vary"]
+As used here, the term _______ is synonymous with __________.GAPS => ["Insecta", "Ectognatha"]
+Insects have _______________________, _________________ , three pairs of jointed legs, compound eyes and one pair of antennae.GAPS => ["a chitinous exoskeleton", "a three-part body"]
+Insects are the most _____________ of animals; they include more than a million _________________ and represent more than half of all known living organisms.GAPS => ["diverse group", "described species"]
+The total number of extant species is estimated at ___________________________; potentially _______% of the animal life forms on Earth are insects.GAPS => ["between six and ten million", "over 90"]
+Insects may be found in nearly all environments, although only ______________ of ______________ in the oceans, which are dominated by another arthropod group, crustaceans.GAPS => ["a small number", "species reside"]
+Nearly all _____________ from eggs.GAPS => ["insects hatch"]
+______ growth is constrained by _________________________ and development involves a series of molts.GAPS => ["Insect", "the inelastic exoskeleton"]
+The immature stages often differ from the adults in structure, habit and habitat, and can include _____________________ in those groups that undergo ________________________.GAPS => ["a passive pupal stage", "four-stage metamorphosis"]
+Insects that undergo ______________________________ _____________ and adults develop through a series of nymphal stages.GAPS => ["three-stage metamorphosis lack", "a pupal stage"]
+_____________________________ of the __________ unclear.GAPS => ["The higher level relationship", "insects is"]
+__________ insects of enormous size have been found from the Paleozoic Era, including giant dragonflies with wingspans ___________ cm .GAPS => ["of 55 to 70", "Fossilized"]
+The most _____________________ appear to have coevolved with flowering plants.GAPS => ["diverse insect groups"]
+_____ insects typically move about by walking, flying, or sometimes swimming.GAPS => ["Adult"]
+As it allows for rapid yet _______________, many insects adopt a tripedal gait in which they walk with their legs touching the ground in alternating triangles, composed of the front & rear ______ side with the middle on the other side.GAPS => ["on one", "stable movement"]
+Insects are ______________________ to have evolved flight, and all flying insects derive ________ common ancestor.GAPS => ["from one", "the only invertebrates"]
+____________ spend at __________ of their lives under water, with larval adaptations that include gills, and some adult insects are aquatic and have adaptations for swimming.GAPS => ["Many insects", "least part"]
+Some species, such as water striders, are capable of walking on the surface of water.GAPS => ["Many insects", "least part"]
+Insects are mostly solitary, but some, such as ____________, ants and termites, are social and live in large, _______________________.GAPS => ["certain bees", "well-organized colonies"]
+Some insects, such as earwigs, show _____________, guarding their eggs and young.GAPS => ["maternal care", "show maternal care"]
+Insects can communicate with each other in a variety of ways.GAPS => ["maternal care", "show maternal care"]
+__________ can sense the pheromones of ____________ over great distances.GAPS => ["Male moths", "female moths"]
+_____________ communicate with sounds: crickets stridulate, or rub their wings together, to attract a mate and repel ___________.GAPS => ["Other species", "other males"]
+________________ communicate with light.GAPS => ["Lampyrid beetles"]
+Humans regard _______________ as pests, and attempt to control them using insecticides, and a host of ________________.GAPS => ["certain insects", "other techniques"]
+Some ______________ crops by feeding on sap, leaves, fruits, or wood.GAPS => ["insects damage"]
+Some ___________ parasitic, and may vector diseases.GAPS => ["species are"]
+Some insects perform complex ________________; blow-flies, for example, help consume carrion but also _______________.GAPS => ["ecological roles", "spread diseases"]
+__________________ are essential to the life cycle of ____________________________ on which most organisms, including humans, are at least partly dependent; without them, the terrestrial portion of the biosphere would be devastated.GAPS => ["Insect pollinators", "many flowering plant species"]
+____________ are considered ecologically beneficial as predators and _____________ direct economic benefit.GAPS => ["Many insects", "a few provide"]
+_________________ silk and honey ____________ honey and both have been domesticated by humans.GAPS => ["Silkworms produce", "bees produce"]
+Insects are consumed as food _____% of the world's nations, by people in roughly 3000 _____________.GAPS => ["in 80", "ethnic groups"]
