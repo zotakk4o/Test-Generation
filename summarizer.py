@@ -9,7 +9,6 @@ import json
 import os
 import operator
 import re
-import time
 
 
 class Summarizer:
@@ -48,6 +47,7 @@ class Summarizer:
             output.append(index)
 
         output = sorted(output)
+        sentences = []
 
         for i in output:
             keyword_to_score = {}
@@ -59,35 +59,19 @@ class Summarizer:
                     keyword_to_score[word] = self.scored_words[word]
                     score_to_keyword[self.scored_words[word]] = word
 
-            sentences = []
+            chunked_sentence = self.chunk_sentence(sentence)
+            if chunked_sentence:
+                chunks_removed = []
+                for chunk_name in self.prioritized_chunks:
+                    for chunk, pos_tag in chunked_sentence.items():
+                        if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
+                            sentence = sentence.replace(chunk, "_" * len(chunk))
+                            chunks_removed.append(chunk)
 
-            for index in output:
-                sentence = self.sentences[index]
-                chunked_sentence = self.chunk_sentence(sentence)
-                if chunked_sentence:
-                    chunks_removed = []
-                    for chunk_name in self.prioritized_chunks:
-                        for chunk, pos_tag in chunked_sentence.items():
-                            if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
-                                sentence = sentence.replace(chunk, "_" * len(chunk))
-                                chunks_removed.append(chunk)
-
-                sentences.append(sentence + "GAPS => " + json.dumps(chunks_removed))
+            sentences.append(sentence + "GAPS => " + json.dumps(chunks_removed))
 
         with open(file_write, "w") as f:
             f.write(os.linesep.join([sentence for sentence in sentences]))
-
-    def extract_keywords(self, file_read, file_write, keywords=0):
-        self.process_text(file_read)
-        self.create_words_frequency_dict()
-
-        sorted_words = sorted(self.scored_words.items(), key=operator.itemgetter(1), reverse=True)
-
-        if keywords == 0:
-            keywords = len(sorted_words)
-
-        with open(file_write, "w") as f:
-            f.write(os.linesep.join([self.whole_words[stem] for stem, score in sorted_words[:keywords]]))
 
     def create_words_frequency_dict(self):
         self.scored_words = {}
@@ -122,7 +106,7 @@ class Summarizer:
         grammar = {
             "NM": "{<DT>*<NNP>{1,4}}",
             "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)+}",
-            "NP": "{<DT>*<JJ.*><NN.*>+}",
+            "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>}",  # NP: <DT>*<JJ.*><NN.*>
             "VP": "{<VB.*><NP>|<NN.*><VB.*>}",
             "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}"
         }
@@ -130,7 +114,6 @@ class Summarizer:
 
         cp = nltk.RegexpParser(grammar_string)
         parsed_sentence = cp.parse(tagged)
-
         results = {}
 
         for subtree in parsed_sentence.subtrees(filter=lambda t: t.label() in grammar.keys()):
@@ -142,12 +125,9 @@ class Summarizer:
         return False if not results else results
 
 
-curr = time.time()
 summarizer = Summarizer()
 
 summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt", 100)
 summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
 summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
 summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt", 100)
-
-print(time.time() - curr)
