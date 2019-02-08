@@ -22,7 +22,7 @@ class Summarizer:
         self.whole_words = {}
         self.stop_words = stopwords.words("english") + list(punctuation) + ["'s", "'ve", "'ll", "'d", "'t", "'m", "“",
                                                                             "’", "”", ";", "“"]
-        self.prioritized_chunks = ["LNM", "NB", "NM", "NP", "VP"]
+        self.prioritized_tags = ["LNM", "NB", "NM", "NP"]
 
     def process_text(self, file_name):
         with open(file_name, 'r') as f:
@@ -62,13 +62,14 @@ class Summarizer:
             chunked_sentence = self.chunk_sentence(sentence)
             if chunked_sentence:
                 chunks_removed = []
-                for chunk_name in self.prioritized_chunks:
+                for chunk_name in self.prioritized_tags[:3]:
                     for chunk, pos_tag in chunked_sentence.items():
                         if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
                             sentence = sentence.replace(chunk, "_" * len(chunk))
                             chunks_removed.append(chunk)
+                sentence = sentence + "GAPS => " + json.dumps(chunks_removed)
 
-            sentences.append(sentence + "GAPS => " + json.dumps(chunks_removed))
+            sentences.append(sentence)
 
         with open(file_write, "w") as f:
             f.write(os.linesep.join([sentence for sentence in sentences]))
@@ -107,7 +108,6 @@ class Summarizer:
             "NM": "{<DT>*<NNP>{1,4}}",
             "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)+}",
             "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>}",  # NP: <DT>*<JJ.*><NN.*>
-            "VP": "{<VB.*><NP>|<NN.*><VB.*>}",
             "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}"
         }
         grammar_string = re.sub("(?<=}),", os.linesep, json.dumps(grammar)[1:-1].replace("\"", ""))
