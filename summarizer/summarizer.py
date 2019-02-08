@@ -97,9 +97,6 @@ class Summarizer:
     def format_word(self, word):
         return self.ps.stem(word.lower())
 
-    def is_period_or_date(self, number):
-        return len(re.findall("[0-9]+", number)) > 0
-
     def chunk_sentence(self, sentence):
         sentence = word_tokenize(sentence)
         tagged = tag.pos_tag(sentence)
@@ -127,7 +124,7 @@ class Summarizer:
 
 summarizer = Summarizer()
 
-summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt", 100)
-summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
-summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
-summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt", 100)
+summarizer.summarize("summarizer/summaries/history.txt", "summarizer/summaries/history-summary.txt", 100)
+summarizer.summarize("summarizer/summaries/literature.txt", "summarizer/summaries/literature-summary.txt", 100)
+summarizer.summarize("summarizer/summaries/science.txt", "summarizer/summaries/science-summary.txt", 100)
+summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)

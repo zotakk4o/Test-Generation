@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Generation</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+<main>
+    <form id="test-generation-form">
+        <div class="form-group interactive">
+            <label for="file-upload">Text File Upload</label>
+            <input type="file" id="file-upload">
+        </div>
+        <div class="form-group interactive">
+            <label for="raw-text">Raw Text</label>
+            <textarea id="raw-text" class="hidden" cols="30" rows="10"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="length">Test Size in Per cents</label>
+            <span class="range-number readonly">40</span>
+            <input type="range" id="length" min="40" value="40">
+            <span class="range-number">40</span>
+        </div>
+        <div class="form-group">
+            <label for="options-range">Sentence Completion & True/False Questions</label>
+            <span class="range-number" id="options-range-min">50</span>
+            <input type="range" id="options-range" min="0" max="100">
+            <span class="range-number" id="options-range-max">50</span>
+        </div>
+    </form>
+</main>
+</body>
+</html>
