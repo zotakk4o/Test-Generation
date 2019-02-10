@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Test Generation</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="js/main.js"></script>
 </head>
@@ -11,24 +12,29 @@
 <main>
     <form id="test-generation-form">
         <div class="form-group interactive">
-            <label for="file-upload">Text File Upload</label>
+            <label for="file-upload"><i class="fas fa-upload"></i>Upload a file</label>
             <input type="file" id="file-upload">
         </div>
         <div class="form-group interactive">
             <label for="raw-text">Raw Text</label>
-            <textarea id="raw-text" class="hidden" cols="30" rows="10"></textarea>
+            <div class="hidden">
+                <textarea id="raw-text"></textarea>
+            </div>
         </div>
         <div class="form-group">
-            <label for="length">Test Size in Per cents</label>
-            <span class="range-number readonly">40</span>
+            <label for="length">Test Size</label>
+            <span class="range-number readonly">40%</span>
             <input type="range" id="length" min="40" value="40">
-            <span class="range-number">40</span>
+            <span class="range-number">40%</span>
         </div>
         <div class="form-group">
-            <label for="options-range">Sentence Completion & True/False Questions</label>
-            <span class="range-number" id="options-range-min">50</span>
+            <label for="options-range">Gapped Sentences & True/False Questions</label>
+            <span class="range-number" id="options-range-min">50%</span>
             <input type="range" id="options-range" min="0" max="100">
-            <span class="range-number" id="options-range-max">50</span>
+            <span class="range-number" id="options-range-max">50%</span>
+        </div>
+        <div class="form-group">
+            <button type="button" id="generate">Generate</button>
         </div>
     </form>
 </main>
