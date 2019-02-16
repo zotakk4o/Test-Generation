@@ -69,7 +69,10 @@ class Summarizer:
                             dsc = [key for key, value in chunked_chunk.items() if value == "DSC"]
                             if dsc:
                                 if re.search("\s(is|are|was|were)", dsc[0]):
-                                    chunks.append(chunk)
+                                    items = [key for key, value in chunked_chunk.items() if value in ["DSC", "DSCS"]]
+                                    item = items[0].replace(items[1], "").split('.')[0].strip().split(',')[0].strip()
+                                    if len(item.split(" ")) > 1:
+                                        chunks.append(item)
 
                 with open(file_write.replace("summary", "bonus"), "w") as f:
                     f.write(os.linesep.join(chunks))

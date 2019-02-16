@@ -62,6 +62,8 @@ function handleFileUpload() {
 function handleFormSubmit() {
     $('#generate').on('click', function (e) {
         let btn = $(e.target);
-        console.log(this.files);
+        let file = $('#file-upload')[0].files[0];
+        let rawText = $('#raw-text').val();
+        console.log(rawText);
     })
 }
