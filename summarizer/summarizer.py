@@ -48,6 +48,7 @@ class Summarizer:
 
         output = sorted(output)
         sentences = []
+        chunks = []
 
         for i in output:
             keyword_to_score = {}
@@ -61,8 +62,18 @@ class Summarizer:
 
             chunked_sentence = self.chunk_sentence(sentence)
             if chunked_sentence:
+
+                for chunk, pos_tag in chunked_sentence.items():
+                    if pos_tag == "DSC":
+                        if re.search("\s(is|was|are|were)\s", chunk):
+                            chunks.append(chunk)
+
+                with open(file_write.replace("summary", "bonus"), "w") as f:
+                    f.write(os.linesep.join(chunks))
+
                 chunks_removed = []
-                for chunk_name in self.prioritized_tags[:3]:
+                for chunk_name in self.prioritized_tags:
+                    
                     for chunk, pos_tag in chunked_sentence.items():
                         if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
                             sentence = sentence.replace(chunk, "_" * len(chunk))
@@ -104,8 +115,9 @@ class Summarizer:
         grammar = {
             "NM": "{<DT>*<NNP>{1,4}}",
             "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)+}",
-            "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>}",  # NP: <DT>*<JJ.*><NN.*>
-            "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}"
+            "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>+}",  # NP: <DT>*<JJ.*><NN.*>
+            "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}",
+            "DSC": "{<NM><VB.*><.*>+}"
         }
         grammar_string = re.sub("(?<=}),", os.linesep, json.dumps(grammar)[1:-1].replace("\"", ""))
 
