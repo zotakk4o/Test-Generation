@@ -62,11 +62,14 @@ class Summarizer:
 
             chunked_sentence = self.chunk_sentence(sentence)
             if chunked_sentence:
-
                 for chunk, pos_tag in chunked_sentence.items():
-                    if pos_tag == "DSC":
-                        if re.search("\s(is|was|are|were)\s", chunk):
-                            chunks.append(chunk)
+                    if pos_tag == "DSCS":
+                        chunked_chunk = self.chunk_sentence(chunk)
+                        if chunked_chunk:
+                            dsc = [key for key, value in chunked_chunk.items() if value == "DSC"]
+                            if dsc:
+                                if re.search("\s(is|are|was|were)", dsc[0]):
+                                    chunks.append(chunk)
 
                 with open(file_write.replace("summary", "bonus"), "w") as f:
                     f.write(os.linesep.join(chunks))
@@ -117,7 +120,8 @@ class Summarizer:
             "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)+}",
             "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>+}",  # NP: <DT>*<JJ.*><NN.*>
             "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}",
-            "DSC": "{<NM><VB.*><.*>+}"
+            "DSC": "{<NM><VB.*>}",
+            "DSCS": "{<DSC><.*>+}"
         }
         grammar_string = re.sub("(?<=}),", os.linesep, json.dumps(grammar)[1:-1].replace("\"", ""))
 
