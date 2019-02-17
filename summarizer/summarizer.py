@@ -71,7 +71,7 @@ class Summarizer:
                                 if re.search("\s(is|are|was|were)", dsc[0]):
                                     items = [key for key, value in chunked_chunk.items() if value in ["DSC", "DSCS"]]
                                     item = items[0].replace(items[1], "").split('.')[0].strip().split(',')[0].strip()
-                                    if len(item.split(" ")) > 1:
+                                    if len(item.split(" ")) > 1 and not self.is_there_tag(item, "PRP"):
                                         chunks.append(item)
 
                 with open(file_write.replace("summary", "bonus"), "w") as f:
@@ -140,10 +140,19 @@ class Summarizer:
             results[" ".join(items)] = subtree.label()
         return False if not results else results
 
+    def is_there_tag(self, sentence, search):
+        items = tag.pos_tag(word_tokenize(sentence))
+        items = [val for key, val in items]
+        for item in items:
+            if search in item:
+                return True
+        return False
+
+
 
 summarizer = Summarizer()
 
 summarizer.summarize("summarizer/summaries/history.txt", "summarizer/summaries/history-summary.txt", 100)
 summarizer.summarize("summarizer/summaries/literature.txt", "summarizer/summaries/literature-summary.txt", 100)
 summarizer.summarize("summarizer/summaries/science.txt", "summarizer/summaries/science-summary.txt", 100)
-summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)
+#summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)
