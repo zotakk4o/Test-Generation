@@ -64,22 +64,24 @@ class Summarizer:
             if chunked_sentence:
                 for chunk, pos_tag in chunked_sentence.items():
                     if pos_tag == "DSCS":
-                        chunked_chunk = self.chunk_sentence(chunk)
-                        if chunked_chunk:
-                            dsc = [key for key, value in chunked_chunk.items() if value == "DSC"]
-                            if dsc:
-                                if re.search("\s(is|are|was|were)", dsc[0]):
-                                    items = [key for key, value in chunked_chunk.items() if value in ["DSC", "DSCS"]]
-                                    item = items[0].replace(items[1], "").split('.')[0].strip().split(',')[0].strip()
-                                    if len(item.split(" ")) > 1 and not self.is_there_tag(item, "PRP"):
-                                        chunks.append(item)
+                        tagged_chunk = self.chunk_sentence(chunk)
+                        if tagged_chunk:
+                            dsc_chunk = [key for key, value in tagged_chunk.items() if value == "DSC"]
+                            if dsc_chunk and re.search("\s(is|are|was|were)", dsc_chunk[0]):
+                                description_chunks = [key for key, value in tagged_chunk.items() if
+                                                      value in ["DSC", "DSCS"]]
+                                description_chunk = self.extract_description(description_chunks)
+
+                                if len(description_chunk.split(" ")) > 1 and not self.is_there_tag(
+                                        description_chunk, "PRP"):
+                                    chunks.append(description_chunk)
 
                 with open(file_write.replace("summary", "bonus"), "w") as f:
                     f.write(os.linesep.join(chunks))
 
                 chunks_removed = []
                 for chunk_name in self.prioritized_tags:
-                    
+
                     for chunk, pos_tag in chunked_sentence.items():
                         if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
                             sentence = sentence.replace(chunk, "_" * len(chunk))
@@ -140,6 +142,9 @@ class Summarizer:
             results[" ".join(items)] = subtree.label()
         return False if not results else results
 
+    def extract_description(self, description_chunks):
+        return description_chunks[0].replace(description_chunks[1], "").split('.')[0].split(',')[0].strip()
+
     def is_there_tag(self, sentence, search):
         items = tag.pos_tag(word_tokenize(sentence))
         items = [val for key, val in items]
@@ -149,10 +154,9 @@ class Summarizer:
         return False
 
 
-
 summarizer = Summarizer()
 
 summarizer.summarize("summarizer/summaries/history.txt", "summarizer/summaries/history-summary.txt", 100)
 summarizer.summarize("summarizer/summaries/literature.txt", "summarizer/summaries/literature-summary.txt", 100)
 summarizer.summarize("summarizer/summaries/science.txt", "summarizer/summaries/science-summary.txt", 100)
-#summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)
+# summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)
