@@ -62,33 +62,22 @@ class Summarizer:
 
             chunked_sentence = self.chunk_sentence(sentence)
             if chunked_sentence:
-                for chunk, pos_tag in chunked_sentence.items():
-                    if pos_tag == "DSCS":
-                        tagged_chunk = self.chunk_sentence(chunk)
-                        if tagged_chunk:
-                            dsc_chunk = [key for key, value in tagged_chunk.items() if value == "DSC"]
-                            if dsc_chunk and re.search("\s(is|are|was|were)", dsc_chunk[0]):
-                                description_chunks = [key for key, value in tagged_chunk.items() if
-                                                      value in ["DSC", "DSCS"]]
-                                description_chunk = self.extract_description(description_chunks)
-
-                                if len(description_chunk.split(" ")) > 1 and not self.is_there_tag(
-                                        description_chunk, "PRP"):
-                                    chunks.append(description_chunk)
-
-                with open(file_write.replace("summary", "bonus"), "w") as f:
-                    f.write(os.linesep.join(chunks))
-
                 chunks_removed = []
+                dsc_phrases = self.extract_description_phrase(chunked_sentence)
+                if dsc_phrases:
+                    for phrase in dsc_phrases:
+                        if len(phrase.strip().split(" ")) > 2:
+                            chunks.append(phrase)
                 for chunk_name in self.prioritized_tags:
-
                     for chunk, pos_tag in chunked_sentence.items():
                         if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
                             sentence = sentence.replace(chunk, "_" * len(chunk))
                             chunks_removed.append(chunk)
                 sentence = sentence + "GAPS => " + json.dumps(chunks_removed)
-
             sentences.append(sentence)
+
+        with open(file_write.replace('summary', 'bonus'), "w") as f:
+            f.write(os.linesep.join(chunks))
 
         with open(file_write, "w") as f:
             f.write(os.linesep.join([sentence for sentence in sentences]))
@@ -142,8 +131,35 @@ class Summarizer:
             results[" ".join(items)] = subtree.label()
         return False if not results else results
 
+    def extract_description_phrase(self, chunked_sentence):
+        chunks = set()
+        for chunk, pos_tag in chunked_sentence.items():
+            if pos_tag == "DSCS":
+                tagged_chunk = self.chunk_sentence(chunk)
+                if tagged_chunk:
+                    description_chunks = [key for key, value in tagged_chunk.items() if
+                                          value in ["DSC", "DSCS"]]
+                    if description_chunks:
+                        for description in self.extract_description(description_chunks):
+                            chunks.add(description)
+
+        return chunks
+
     def extract_description(self, description_chunks):
-        return description_chunks[0].replace(description_chunks[1], "").split('.')[0].split(',')[0].strip()
+        descriptions = []
+        sent = description_chunks[0]
+        delimiter = "$$$$"
+        for index in range(1, len(description_chunks)):
+            desc = description_chunks[index]
+            if re.search("\s(is|are|was|were)", desc):
+                sent = sent.replace(desc, delimiter)
+
+        for description in sent.split(delimiter)[1:]:
+            description = description.split('.')[0].strip()
+            if not self.is_there_tag(description, "PRP"):
+                descriptions.append(description)
+
+        return descriptions
 
     def is_there_tag(self, sentence, search):
         items = tag.pos_tag(word_tokenize(sentence))
@@ -156,7 +172,7 @@ class Summarizer:
 
 summarizer = Summarizer()
 
-summarizer.summarize("summarizer/summaries/history.txt", "summarizer/summaries/history-summary.txt", 100)
-summarizer.summarize("summarizer/summaries/literature.txt", "summarizer/summaries/literature-summary.txt", 100)
-summarizer.summarize("summarizer/summaries/science.txt", "summarizer/summaries/science-summary.txt", 100)
+summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt", 100)
+summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
+summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
 # summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)
