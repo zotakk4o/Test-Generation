@@ -131,7 +131,7 @@ class Summarizer:
             results[" ".join(items)] = subtree.label()
         return False if not results else results
 
-    def extract_description_phrase(self, chunked_sentence):
+    def extract_description_phrases(self, chunked_sentence):
         chunks = set()
         for chunk, pos_tag in chunked_sentence.items():
             if pos_tag == "DSCS":
@@ -145,7 +145,7 @@ class Summarizer:
 
         return chunks
 
-    def extract_description(self, description_chunks):
+    def extract_descriptions(self, description_chunks):
         descriptions = []
         sent = description_chunks[0]
         delimiter = "$$$$"
