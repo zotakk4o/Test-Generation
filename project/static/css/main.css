@@ -18,10 +18,11 @@ form {
     background: #FFFFFF;
     border-radius: 15px;
     padding: 25px;
+    width: 800px;
 }
 
 form div.form-group {
-    min-height: 75px;
+    min-height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,7 +59,7 @@ form div.interactive input {
 form div.interactive label,
 form button {
     margin-bottom: 10px;
-    width: 300px;
+    width: 375px;
     cursor: pointer;
     padding: 15px;
     border-radius: 15px;
@@ -82,14 +83,14 @@ div.form-group .range-number {
 }
 
 form label {
-    width: 40%;
+    margin: 0 20px;
     font-size: 24px;
     text-align: center;
 }
 
 form input[type=range] {
     -webkit-appearance: none;
-    width: 60%;
+    width: 250px;
     height: 15px;
     border-radius: 5px;
     background: #d3d3d3;
@@ -121,4 +122,67 @@ form button {
     border: none;
     padding: 20px;
     outline: none;
+    width: 275px;
+}
+
+.container {
+    height: 50px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 24px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    right: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #ccc;
+}
+
+.container:hover input ~ .checkmark {
+    background: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+    background: linear-gradient(to right, #00E582, #00C884);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

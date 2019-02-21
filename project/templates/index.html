@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Generation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -23,15 +24,22 @@
         </div>
         <div class="form-group">
             <label for="length">Test Size</label>
-            <span class="range-number readonly">40%</span>
             <input type="range" id="length" min="40" value="40">
             <span class="range-number">40%</span>
         </div>
         <div class="form-group">
-            <label for="options-range">Gapped Sentences & True/False Questions</label>
-            <span class="range-number" id="options-range-min">50%</span>
-            <input type="range" id="options-range" min="0" max="100">
-            <span class="range-number" id="options-range-max">50%</span>
+            <label class="container">
+                <span class="text">Fill in the gaps</span>
+                <input type="checkbox" value="gap" checked>
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label class="container">
+                <span class="text">Sentence completion</span>
+                <input type="checkbox" value="sentence-completion" checked>
+                <span class="checkmark"></span>
+            </label>
         </div>
         <div class="form-group">
             <button type="button" id="generate">Generate</button>

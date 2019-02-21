@@ -19,13 +19,6 @@ function handleRangeInputs() {
                 let span = $(spans[0]);
                 span.text(parseInt(slider.val()) + "%");
             }
-            if (index === 0 && spans.length > 1) {
-                let span = $(spans[0]);
-                span.text(100 - parseInt(slider.val()) + "%");
-            } else if (index === 1) {
-                let span = $(spans[1]);
-                span.text(parseInt(slider.val()) + "%");
-            }
         }
     })
 }

@@ -63,7 +63,7 @@ class Summarizer:
             chunked_sentence = self.chunk_sentence(sentence)
             if chunked_sentence:
                 chunks_removed = []
-                dsc_phrases = self.extract_description_phrase(chunked_sentence)
+                dsc_phrases = self.extract_description_phrases(chunked_sentence)
                 if dsc_phrases:
                     for phrase in dsc_phrases:
                         if len(phrase.strip().split(" ")) > 2:
@@ -113,7 +113,7 @@ class Summarizer:
             "NM": "{<DT>*<NNP>{1,4}}",
             "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)+}",
             "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>+}",  # NP: <DT>*<JJ.*><NN.*>
-            "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}",
+            "NB": "{<IN><CD><TO|CC|NM|IN>*<CD>*<NM>*}",
             "DSC": "{<NM><VB.*>}",
             "DSCS": "{<DSC><.*>+}"
         }
@@ -140,7 +140,7 @@ class Summarizer:
                     description_chunks = [key for key, value in tagged_chunk.items() if
                                           value in ["DSC", "DSCS"]]
                     if description_chunks:
-                        for description in self.extract_description(description_chunks):
+                        for description in self.extract_descriptions(description_chunks):
                             chunks.add(description)
 
         return chunks
@@ -173,6 +173,6 @@ class Summarizer:
 summarizer = Summarizer()
 
 summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt", 100)
-summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
-summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
+# summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
+# summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
 # summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)
