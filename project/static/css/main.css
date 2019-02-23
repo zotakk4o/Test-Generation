@@ -23,13 +23,15 @@ form {
 
 form div.form-group {
     min-height: 90px;
+    position: relative;
     display: flex;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     margin: 10px 0 10px 0;
 }
 
-form div.form-group div {
+form div.form-group .border-container {
     width: 90%;
     height: 400px;
     display: flex;
@@ -90,7 +92,7 @@ form label {
 
 form input[type=range] {
     -webkit-appearance: none;
-    width: 250px;
+    width: 400px;
     height: 15px;
     border-radius: 5px;
     background: #d3d3d3;
@@ -185,4 +187,38 @@ form button {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+div.error {
+    text-align: center;
+    font-size: 24px;
+    color: red;
+    margin: 5px 0;
+}
+
+i#undo-selection {
+    font-size: 30px;
+    position: absolute;
+    right: calc(50% - 250px);
+    cursor: pointer;
+    top: 25px;
+    background-image: -webkit-linear-gradient(to right, #00E582, #00C884);
+    background-image:    -moz-linear-gradient(to right, #00E582, #00C884);
+    background-image:     -ms-linear-gradient(to right, #00E582, #00C884);
+    background-image:      -o-linear-gradient(to right, #00E582, #00C884);
+    background-image:         linear-gradient(to right, #00E582, #00C884);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+div#loader {
+    position: absolute;
+    right: calc(55% - 255px);
+    height: 50px;
+    width: 50px;
+    display: none;
+}
+
+div#loader img {
+    width: 100%;
 }

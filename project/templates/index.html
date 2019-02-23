@@ -6,43 +6,49 @@
     <title>Test Generation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
 <body>
 <main>
     <form id="test-generation-form">
-        <div class="form-group interactive">
+        <div class="form-group interactive" id="file-upload-container">
             <label for="file-upload"><i class="fas fa-upload"></i>Upload a file</label>
             <input type="file" id="file-upload" accept=".txt,.docx,.pdf">
+            <i class="fas fa-undo hidden" id="undo-selection"></i>
         </div>
-        <div class="form-group interactive">
+        <div class="form-group interactive" id="raw-text-container">
             <label for="raw-text">Raw Text</label>
-            <div class="hidden">
+            <div class="hidden border-container">
                 <textarea id="raw-text"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label for="length">Test Size</label>
-            <input type="range" id="length" min="40" value="40">
-            <span class="range-number">40%</span>
+            <input type="range" id="length" min="50" value="50" name="test-size">
+            <span class="range-number">50%</span>
         </div>
         <div class="form-group">
             <label class="container">
                 <span class="text">Fill in the gaps</span>
-                <input type="checkbox" value="gap" checked>
+                <input type="checkbox" value="gap" name="gap">
                 <span class="checkmark"></span>
             </label>
         </div>
         <div class="form-group">
             <label class="container">
                 <span class="text">Sentence completion</span>
-                <input type="checkbox" value="sentence-completion" checked>
+                <input type="checkbox" value="sentence-completion" name="sentence-completion">
                 <span class="checkmark"></span>
             </label>
         </div>
+        <div class="error error-checkbox hidden">Error: At least one of the options above must be checked.</div>
         <div class="form-group">
+            <div class="error hidden">Error: No text data provided.</div>
             <button type="button" id="generate">Generate</button>
+            <div id="loader">
+                <img src="{{ url_for('static', filename='img/loader.gif') }}" alt="">
+            </div>
         </div>
     </form>
 </main>
