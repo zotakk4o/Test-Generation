@@ -10,8 +10,8 @@ __________ and field events are individual sports with a single victor; the most
 Events are almost exclusively divided by gender, although both the men's and women's competitions are usually held at ______________.GAPS => ["the same venue"]
 If a race has _______________ to run all at once, _________________ will be run to narrow down the field of participants.GAPS => ["too many people", "preliminary heats"]
 Track and field is one of _________________.GAPS => ["the oldest sports"]
-In ancient times, it was an event held in conjunction with festivals and sports meets such as ___________________ Games in ______.GAPS => ["the Ancient Olympic", "Greece"]
-In modern times, the two most prestigious international track and field competitions are athletics competition at ___________ Games and ____________________________ in Athletics.GAPS => ["the Olympic", "the IAAF World Championships"]
+In ancient times, it was an event held in conjunction with festivals and sports meets such as _________________________ in ______.GAPS => ["the Ancient Olympic Games", "Greece"]
+In modern times, the two most prestigious international track and field competitions are athletics competition at __________________________________________________ in Athletics.GAPS => ["the Olympic Games and the IAAF World Championships", "the Olympic Games"]
 _____________________________ of _____________________ is the international governing body.GAPS => ["The International Association", "Athletics Federations"]
 Records are kept of _____________________ in _______________, at world and national levels, right down to a personal level.GAPS => ["the best performances", "specific events"]
 However, if athletes are deemed to have violated the event's rules or regulations, they are disqualified from the competition and their marks are erased.

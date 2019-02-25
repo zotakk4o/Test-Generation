@@ -49,6 +49,7 @@ class Summarizer:
         output = sorted(output)
         sentences = []
         chunks = []
+        nbs = []
 
         for i in output:
             keyword_to_score = {}
@@ -63,11 +64,16 @@ class Summarizer:
             chunked_sentence = self.chunk_sentence(sentence)
             if chunked_sentence:
                 chunks_removed = []
-                dsc_phrases = self.extract_description_phrase(chunked_sentence)
+                dsc_phrases = self.extract_description_phrases(chunked_sentence)
                 if dsc_phrases:
                     for phrase in dsc_phrases:
                         if len(phrase.strip().split(" ")) > 2:
                             chunks.append(phrase)
+
+                for chunk, pos_tag in chunked_sentence.items():
+                    if pos_tag == "NB":
+                        nbs.append(chunk)
+
                 for chunk_name in self.prioritized_tags:
                     for chunk, pos_tag in chunked_sentence.items():
                         if pos_tag == chunk_name and chunk not in chunks_removed and len(chunks_removed) <= 1:
@@ -75,6 +81,8 @@ class Summarizer:
                             chunks_removed.append(chunk)
                 sentence = sentence + "GAPS => " + json.dumps(chunks_removed)
             sentences.append(sentence)
+
+        print(os.linesep.join([item for item in nbs if re.search("[0-9+]", item)]))
 
         with open(file_write.replace('summary', 'bonus'), "w") as f:
             f.write(os.linesep.join(chunks))
@@ -110,10 +118,11 @@ class Summarizer:
         tagged = tag.pos_tag(sentence)
 
         grammar = {
-            "NM": "{<DT>*<NNP>{1,4}}",
-            "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)+}",
-            "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>+}",  # NP: <DT>*<JJ.*><NN.*>
-            "NB": "{<IN><CD><TO|CC|NM>*<CD>*<NM>*}",
+            "NM": "{<DT>*<NNP.*>{1,4}}",
+            "NP": "{<DT>*<RB.*|JJ.*>+<NN.*>+}",
+            "NB": "{(<IN><CD><TO|CC|NM|IN>*<CD|NM>*)"
+                  "|((<IN><NM|,>+|<NM>)<CD><,>*<CD>*)}",
+            "LNM": "{<NM>(<.>*<CC><NM>|<.><CC>*<NM>)+}",
             "DSC": "{<NM><VB.*>}",
             "DSCS": "{<DSC><.*>+}"
         }
@@ -140,7 +149,7 @@ class Summarizer:
                     description_chunks = [key for key, value in tagged_chunk.items() if
                                           value in ["DSC", "DSCS"]]
                     if description_chunks:
-                        for description in self.extract_description(description_chunks):
+                        for description in self.extract_descriptions(description_chunks):
                             chunks.add(description)
 
         return chunks
@@ -172,7 +181,8 @@ class Summarizer:
 
 summarizer = Summarizer()
 
+summarizer.summarize("summaries/america.txt", "summaries/america-summary.txt", 100)
 summarizer.summarize("summaries/history.txt", "summaries/history-summary.txt", 100)
 summarizer.summarize("summaries/literature.txt", "summaries/literature-summary.txt", 100)
 summarizer.summarize("summaries/science.txt", "summaries/science-summary.txt", 100)
-# summarizer.summarize("summarizer/summaries/sports.txt", "summarizer/summaries/sports-summary.txt", 100)
+summarizer.summarize("summaries/sports.txt", "summaries/sports-summary.txt", 100)
