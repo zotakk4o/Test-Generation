@@ -8,9 +8,9 @@ function loadFunctions() {
         handleFormSubmit();
         handleUndoButton();
         handleAjaxLoader();
+        test();
     });
 }
-
 
 function handleRangeInputs() {
     $('input[type=range]').on("input", function (e) {
@@ -70,18 +70,18 @@ function handleFormSubmit() {
             btn.siblings('.error').removeClass('hidden');
         }
 
-        if($('input[type=checkbox]:checked').length < 1) {
+        if ($('input[type=checkbox]:checked').length < 1) {
             $('div.error-checkbox').removeClass('hidden');
         } else {
             $('div.error-checkbox').addClass('hidden');
         }
 
-        if($('div.error:not(.hidden)').length === 0) {
+        if ($('div.error:not(.hidden)').length === 0) {
             let form_data = new FormData($('form#test-generation-form')[0]);
             console.log(form_data);
             $.ajax({
                 method: "POST",
-                url: '/summarize',
+                url: '/generate-test',
                 data: form_data,
                 contentType: false,
                 cache: false,
@@ -92,7 +92,6 @@ function handleFormSubmit() {
             });
         }
     });
-
 }
 
 function handleUndoButton() {
@@ -104,10 +103,19 @@ function handleUndoButton() {
     });
 }
 
+function test() {
+    $.get('/test', function (data) {
+        let doc = new jsPDF();
+        doc.fromHTML(data, 15, 15);
+        doc.save('sample-file.pdf');
+    });
+
+}
+
 function handleAjaxLoader() {
-    $(document).ajaxStart(function(){
+    $(document).ajaxStart(function () {
         $('div#loader').show();
-    }).ajaxStop(function(){
+    }).ajaxStop(function () {
         $('div#loader').hide();
     });
 }
@@ -115,4 +123,3 @@ function handleAjaxLoader() {
 function clearErrors() {
     $('form div.error').addClass('hidden');
 }
-

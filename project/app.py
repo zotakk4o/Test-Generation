@@ -8,13 +8,16 @@ app.debug = True
 
 @app.route('/', methods=['GET'])
 def index():
-    title = 'Create the input'
-    return render_template('index.html',
-                           title=title)
+    return render_template('index.html')
 
 
-@app.route('/summarize', methods=['POST'])
-def summarize():
+@app.route('/test', methods=['GET'])
+def test():
+    return render_template('test.html')
+
+
+@app.route('/generate-test', methods=['POST'])
+def generate_test():
     if request.files:
         file = request.files['file-upload'].read()
         text = str(file.decode("utf-8"))
