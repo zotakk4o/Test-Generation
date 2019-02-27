@@ -2,13 +2,15 @@ import string
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk import word_tokenize, sent_tokenize
+from string import punctuation
 
 
 class CleanUtils:
 
     @staticmethod
     def remove_stopwords(text):
-        stop = stopwords.words('english')
+        stop = stopwords.words('english') + list(punctuation) + ["'s", "'ve", "'ll", "'d", "'t", "'m", "“",
+                                                                 "’", "”", ";", "“"]
         return ' '.join([word for word in text.split() if word not in stop])
 
     @staticmethod
@@ -30,7 +32,7 @@ class CleanUtils:
         return text.translate(str.maketrans('', '', punc))
 
     @staticmethod
-    def clean_file(text, to_words=False, stem=True):
+    def clean_text(text, to_words=False, stem=True):
         text = text.lower()
         text = CleanUtils.remove_stopwords(text)
 
