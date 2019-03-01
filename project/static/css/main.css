@@ -23,7 +23,6 @@ form {
 
 form div.form-group {
     min-height: 90px;
-    position: relative;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -50,8 +49,8 @@ span.readonly {
     font-size: 0 !important;
 }
 
-form div.interactive {
-    flex-flow: column;
+form div#file-upload-container {
+    flex-flow: row;
 }
 
 form div.interactive input {
@@ -198,10 +197,7 @@ div.error {
 
 i#undo-selection {
     font-size: 30px;
-    position: absolute;
-    right: calc(50% - 250px);
     cursor: pointer;
-    top: 25px;
     background-image: -webkit-linear-gradient(to right, #00E582, #00C884);
     background-image:    -moz-linear-gradient(to right, #00E582, #00C884);
     background-image:     -ms-linear-gradient(to right, #00E582, #00C884);
@@ -212,10 +208,9 @@ i#undo-selection {
 }
 
 div#loader {
-    position: absolute;
-    right: calc(55% - 255px);
     height: 50px;
     width: 50px;
+    margin-top: 10px;
     display: none;
 }
 
@@ -232,4 +227,122 @@ ul {
 ul li {
     margin: 20px 0;
     font-size: 20px;
+}
+
+@media all and (max-width: 540px) {
+    form div.form-group {
+        min-height: 50px;
+    }
+    form div.interactive label, form button {
+        width: 300px;
+        font-size: 22px;
+    }
+
+    form div.form-group .border-container {
+        width: 85%;
+    }
+
+    form label,
+    span.range-number,
+    .container {
+        font-size: 20px;
+    }
+
+    form textarea {
+        font-size: 12px;
+    }
+
+    div.error {
+        font-size: 16px;
+    }
+
+    form input[type=range],
+    .container {
+        width: 325px;
+    }
+}
+
+@media all and (max-width: 435px) {
+    form div.form-group {
+        min-height: 40px;
+    }
+    form div.interactive label, form button {
+        width: 250px;
+    }
+
+
+    form input[type=range],
+    .container {
+        width: 270px;
+    }
+
+}
+
+@media all and (max-width: 380px) {
+    form div.form-group {
+        min-height: 40px;
+    }
+    form div.interactive label, form button {
+        width: 200px;
+        font-size: 20px;
+    }
+
+    form label,
+    span.range-number,
+    .container {
+        font-size: 16px !important;
+    }
+
+    form textarea {
+        font-size: 12px;
+    }
+
+    div.error {
+        font-size: 14px;
+    }
+
+    form input[type=range],
+    .container {
+        width: 225px;
+    }
+
+    i#undo-selection {
+        font-size: 22px;
+    }
+
+}
+
+@media all and (max-width: 330px) {
+    form div.interactive label, form button {
+        width: 175px;
+        font-size: 18px;
+    }
+
+    form label,
+    span.range-number,
+    .container {
+        font-size: 15px !important;
+    }
+
+    form textarea {
+        font-size: 10px;
+    }
+
+    div.error {
+        font-size: 12px;
+    }
+
+    form input[type=range],
+    .container {
+        width: 200px;
+    }
+
+    i#undo-selection {
+        font-size: 20px;
+    }
+
+    form label {
+        margin: 0 10px;
+    }
+
 }
