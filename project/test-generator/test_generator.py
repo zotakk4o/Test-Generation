@@ -1,6 +1,6 @@
 import nltk
 from nltk import tag
-from nltk import word_tokenize
+from nltk import word_tokenize, sent_tokenize
 from utils.clean_utils import CleanUtils
 from numpy import argsort
 from collections import Counter
@@ -16,8 +16,8 @@ import operator
 class TestGenerator:
 
     def __init__(self, text, percentage=50):
-        self.results = self.prepare_test_sentences(text, percentage)
         self.sentences = []
+        self.results = self.prepare_test_sentences(text, percentage)
 
     @staticmethod
     def is_there_tag(sentence, search):
@@ -74,8 +74,6 @@ class TestGenerator:
             lnms_removed = 0
             chunks_removed_delimiter = "~$~$~"
 
-            print(Counter(chunked_sentence.values()))
-
             if "NB" not in chunked_sentence.values():
                 pos_tags_counter = Counter(chunked_sentence.values())
                 for chunk_name in ["LNM", "NM"]:
@@ -100,7 +98,7 @@ class TestGenerator:
 
     def extract_bonuses(self):
         bonuses = []
-        for sentence, chunked_sentence in self.sentences:
+        for sentence, chunked_sentence in self.results:
             dsc_phrases = self.extract_description_phrases(chunked_sentence)
             if dsc_phrases:
                 for object_of_description, phrase in dsc_phrases:
@@ -174,21 +172,20 @@ class TestGenerator:
         return chunks
 
     def extract_descriptions(self, description_chunks):
+        objects_of_description = []
         descriptions = []
-        object_of_description = description_chunks[0]
-        delimiter = "$$$$"
+        sentence = description_chunks[0]
+        delimiter = "~$~$~"
+
         for index in range(1, len(description_chunks)):
             desc = description_chunks[index]
             if re.search("\s(is|are|was|were)", desc):
-                object_of_description = object_of_description.replace(desc, delimiter)
+                sentence = sentence.replace(desc, delimiter)
+                objects_of_description.append(desc)
 
-        for description in object_of_description.split(delimiter)[1:]:
-            description = description.split('.')[0].strip()
+        for description in sentence.split(delimiter)[1:]:
+            description = sent_tokenize(description.strip())[0]
             if not self.is_there_tag(description, "PRP"):
                 descriptions.append(description)
 
-        return object_of_description, descriptions
-
-
-
-#print(generator.extract_gaps())
+        return zip(objects_of_description, descriptions)

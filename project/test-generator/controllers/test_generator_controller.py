@@ -4,6 +4,8 @@ from utils.controller_utils import ControllerUtils
 from utils.file_utils import FileUtils
 from nltk import sent_tokenize
 from constants.test_generator_controller_constants import *
+from test_generator import TestGenerator
+
 import os
 
 test_generator = Blueprint('simple_page', __name__,
@@ -51,6 +53,14 @@ def generate_test():
     if len(sent_tokenize(text)) < MINIMUM_SENTENCES:
         return make_response(ControllerUtils.error_json_response(TEXT_LENGTH_ERROR), 200)
 
+    test_generator = TestGenerator(text, int(request.form[TEST_SIZE_INPUT_NAME]))
+
+    if GAP_INPUT_NAME in request.form.keys():
+        answer["GAPS"] = test_generator.extract_gaps()
+
+    if COMPLETION_INPUT_NAME in request.form.keys():
+        answer["COMPLETION"] = test_generator.extract_sentence_completion()
+
+    answer["BONUSES"] = test_generator.extract_bonuses()
+
     return make_response(ControllerUtils.json_response(answer), 200)
-
-
