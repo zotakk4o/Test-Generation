@@ -7,8 +7,6 @@ function loadFunctions() {
         handleFileUpload();
         handleFormSubmit();
         handleUndoButton();
-        handleAjaxLoader();
-        test();
     });
 }
 
@@ -86,8 +84,12 @@ function handleFormSubmit() {
                 contentType: false,
                 cache: false,
                 processData: false,
+                beforeSend: function () {
+                    $('div#loader').show();
+                },
                 success: function (data) {
                     console.log(data);
+                    $('div#loader').hide();
                 }
             });
         }
@@ -103,21 +105,10 @@ function handleUndoButton() {
     });
 }
 
-function test() {
-    $.get('/test', function (data) {
-        let doc = new jsPDF();
-        doc.fromHTML(data, 15, 15);
-        doc.save('sample-file.pdf');
-    });
-
-}
-
-function handleAjaxLoader() {
-    $(document).ajaxStart(function () {
-        $('div#loader').show();
-    }).ajaxStop(function () {
-        $('div#loader').hide();
-    });
+function exportPDF() {
+    let doc = new jsPDF();
+    doc.fromHTML(data, 15, 15);
+    doc.save('sample-file.pdf');
 }
 
 function clearErrors() {

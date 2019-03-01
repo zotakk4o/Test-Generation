@@ -15,31 +15,31 @@
     <form id="test-generation-form">
         <div class="form-group interactive" id="file-upload-container">
             <label for="file-upload"><i class="fas fa-upload"></i>Upload a file</label>
-            <input type="file" id="file-upload" accept=".txt,.docx,.pdf">
+            <input type="file" id="file-upload" name="{{ file_upload_name }}" accept=".txt,.doc,.docx,.pdf">
             <i class="fas fa-undo hidden" id="undo-selection"></i>
         </div>
         <div class="form-group interactive" id="raw-text-container">
             <label for="raw-text">Raw Text</label>
             <div class="hidden border-container">
-                <textarea id="raw-text"></textarea>
+                <textarea id="raw-text" name="{{ raw_text_name }}"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label for="length">Test Size</label>
-            <input type="range" id="length" min="50" value="50" name="test-size">
+            <input type="range" id="length" min="50" value="50" name="{{ test_size_name }}">
             <span class="range-number">50%</span>
         </div>
         <div class="form-group">
             <label class="container">
                 <span class="text">Fill in the gaps</span>
-                <input type="checkbox" value="gap" name="gap">
+                <input type="checkbox" value="{{ gaps_name }}" name="{{ gaps_name }}">
                 <span class="checkmark"></span>
             </label>
         </div>
         <div class="form-group">
             <label class="container">
                 <span class="text">Sentence completion</span>
-                <input type="checkbox" value="sentence-completion" name="sentence-completion">
+                <input type="checkbox" value="{{ completion_name }}" name="{{ completion_name }}">
                 <span class="checkmark"></span>
             </label>
         </div>

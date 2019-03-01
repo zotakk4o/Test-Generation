@@ -1,33 +1,13 @@
 from __future__ import print_function
-from flask import Flask, render_template, make_response, jsonify, request
+from flask import Flask
+from controllers.test_generator_controller import *
+
+import os
 
 app = Flask(__name__)
-app.secret_key = 's3cr3t'
+app.config['UPLOAD_PATH'] = os.path.dirname(os.path.abspath(__file__)) + '/test-generator/uploads/'
+app.register_blueprint(test_generator)
 app.debug = True
-
-
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
-
-
-@app.route('/test', methods=['GET'])
-def test():
-    return render_template('test.html')
-
-
-@app.route('/generate-test', methods=['POST'])
-def generate_test():
-    if request.files:
-        file = request.files['file-upload'].read()
-        text = str(file.decode("utf-8"))
-        print(text)
-    elif request.form:
-        for field_name, value in request.form.items():
-            print(field_name)
-            print(value)
-    return make_response(jsonify({'asd': 'asd'}), 200)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
