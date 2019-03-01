@@ -30,28 +30,28 @@ class TestGenerator:
 
     @staticmethod
     def build_graph(nodes):
-        gr = nx.Graph()
-        gr.add_nodes_from(nodes)
-        node_pairs = list(itertools.combinations(nodes, 2))
+        gr = nx.Graph()  # initiate the graph
+        gr.add_nodes_from(nodes)  # add the sentences as nodes
+        node_pairs = list(itertools.combinations(nodes, 2))  # pair up nodes to prepare for edge createion
 
         for pair in node_pairs:
             first_string = pair[0]
             second_string = pair[1]
-            lev_distance = nltk.edit_distance(first_string, second_string)
-            gr.add_edge(first_string, second_string, weight=lev_distance)
+            lev_distance = nltk.edit_distance(first_string, second_string)  # calculate the Levenshtein distance between the nodes
+            gr.add_edge(first_string, second_string, weight=lev_distance)  # add the distance as the edge between nodes
 
         return gr
 
     def extract_sentences(self, text):
-        sentence_tokens = CleanUtils.clean_text(text)
+        sentence_tokens = CleanUtils.clean_text(text)  # clean text up
         self.sentences = [re.sub("[(\[{][^)}\]]*[)\]}]", "", sent.replace(os.linesep, " ")) for sent in
                           CleanUtils.tokenize_sentences(text)]
-        graph = self.build_graph(sentence_tokens)
+        graph = self.build_graph(sentence_tokens)  # build the graph
 
-        calculated_page_rank = nx.pagerank(graph, weight='weight')
-        indices = argsort(list(calculated_page_rank.values()))[::-1]
+        calculated_page_rank = nx.pagerank(graph, weight='weight')  # calculate the PageRank score of each sentence
+        indices = argsort(list(calculated_page_rank.values()))[::-1]  # sort the sentences accordingly
 
-        ranked_sentences = [x for _, x in sorted(zip(indices, self.sentences))]
+        ranked_sentences = [x for _, x in sorted(zip(indices, self.sentences))]  # uncleaned sentences sorted accoording to PageRank score
 
         return ranked_sentences
 
