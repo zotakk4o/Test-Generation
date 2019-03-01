@@ -1,6 +1,10 @@
 loadFunctions();
 
+const fileUploadLabel = "<i class=\"fas fa-upload\"></i>Upload a file";
+
 function loadFunctions() {
+
+
     $(document).ready(function () {
         handleRangeInputs();
         handleTextAreaAppearance();
@@ -76,7 +80,6 @@ function handleFormSubmit() {
 
         if ($('div.error:not(.hidden)').length === 0) {
             let form_data = new FormData($('form#test-generation-form')[0]);
-            console.log(form_data);
             $.ajax({
                 method: "POST",
                 url: '/generate-test',
@@ -87,9 +90,9 @@ function handleFormSubmit() {
                 beforeSend: function () {
                     $('div#loader').show();
                 },
-                success: function (data) {
+                complete: function (data) {
                     console.log(data);
-                    $('div#loader').hide();
+                    resetForm();
                 }
             });
         }
@@ -100,7 +103,7 @@ function handleUndoButton() {
     $('i#undo-selection').click(function (e) {
         $(e.target).addClass('hidden');
         $('input#file-upload').val('');
-        $('div#file-upload-container label').html("<i class=\"fas fa-upload\"></i>Upload a file");
+        $('div#file-upload-container label').html(fileUploadLabel);
         $('div#raw-text-container').removeClass('hidden');
     });
 }
@@ -113,4 +116,16 @@ function exportPDF() {
 
 function clearErrors() {
     $('form div.error').addClass('hidden');
+}
+
+function resetForm() {
+    $('div#loader').hide();
+    $('form#test-generation-form')[0].reset();
+    $('div#file-upload-container').removeClass("hidden");
+    $('div#raw-text-container').removeClass("hidden");
+    $('i#undo-selection').addClass('hidden');
+    $('div.border-container').addClass('hidden');
+    $('div#file-upload-container label').html(fileUploadLabel);
+    let sizeSpan = $('span.range-number');
+    sizeSpan.text(sizeSpan.siblings('input').val() + "%")
 }
