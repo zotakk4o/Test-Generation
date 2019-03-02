@@ -51,16 +51,16 @@ def generate_test():
         text = request.form[RAW_TEXT_NAME]
 
     if len(sent_tokenize(text)) < MINIMUM_SENTENCES:
-        return make_response(ControllerUtils.error_json_response(TEXT_LENGTH_ERROR), 200)
+        return make_response(ControllerUtils.error_json_response(TEXT_LENGTH_ERROR), 400)
 
-    test_generator = TestGenerator(text, int(request.form[TEST_SIZE_INPUT_NAME]))
+    test_generator_object = TestGenerator(text, int(request.form[TEST_SIZE_INPUT_NAME]))
 
     if GAP_INPUT_NAME in request.form.keys():
-        answer["GAPS"] = test_generator.extract_gaps()
+        answer["GAPS"] = test_generator_object.extract_gaps()
 
     if COMPLETION_INPUT_NAME in request.form.keys():
-        answer["COMPLETION"] = test_generator.extract_sentence_completion()
+        answer["COMPLETION"] = test_generator_object.extract_sentence_completion()
 
-    answer["BONUSES"] = test_generator.extract_bonuses()
+    answer["BONUSES"] = test_generator_object.extract_bonuses()
 
     return make_response(ControllerUtils.json_response(answer), 200)
