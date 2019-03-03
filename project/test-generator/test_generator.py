@@ -240,29 +240,19 @@ class TestGenerator:
                 num = num.replace(month, choice(months))
                 is_changed = True
 
-        if re.findall(r'(?<![0-9])(\d{1,2})(?![0-9])', num):
+        if re.findall(r'(?<![0-9])(\d+)(?![0-9])', num):
             change = choice(list(range(-10, -1)) + list(range(1, 10)))
             padding = 0
-            for number in re.finditer(r'(?<![0-9])(\d{1,2})(?![0-9])', num):
+            for number in re.finditer(r'(?<![0-9])(\d+)(?![0-9])', num):
                 old_n = number.group().strip()
                 new_n = int(old_n)
                 if 0 < new_n <= 31:
-                    change = list(range(1, 29))
+                    change_date = list(range(1, 29))
                     if new_n < 29:
-                        change.remove(new_n)
-                    new_n = choice(change)
+                        change_date.remove(new_n)
+                    new_n = choice(change_date)
                 else:
                     new_n += change
-                num = (num[:number.start() + padding] + f"{str(new_n)}" + num[number.end() + padding:]).replace(" ,", ",").strip()
-                padding = len(str(new_n)) - len(str(old_n))
-                is_changed = True
-        if re.findall(r'(-*\d{3,})', num):
-            change = choice(list(range(-10, -1)) + list(range(1, 10)))
-            padding = 0
-            for number in re.finditer(r'(\d{3,})', num):
-                old_n = number.group().strip()
-                new_n = int(old_n)
-                new_n += change
                 num = (num[:number.start() + padding] + f"{str(new_n)}" + num[number.end() + padding:]).replace(" ,", ",").strip()
                 padding = len(str(new_n)) - len(str(old_n))
                 is_changed = True
