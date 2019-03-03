@@ -62,7 +62,8 @@ class TestGenerator:
             chunks = list(filter(None, chunks.split(delimiter)))
             indexed = {}
             for gap in chunks:
-                indexed[haystack.index(gap)] = gap
+                if gap in haystack:
+                    indexed[haystack.index(gap)] = gap
 
             indexed = sorted(indexed.items(), key=operator.itemgetter(0))
             return [gap for i, gap in indexed]
@@ -106,7 +107,7 @@ class TestGenerator:
             if dsc_phrases:
                 for object_of_description, phrase in dsc_phrases:
                     if len(phrase.strip().split(" ")) > 2:
-                        bonuses.append((object_of_description, phrase))
+                        bonuses.append((object_of_description, "_" * len(object_of_description) + phrase))
 
         return bonuses
 
@@ -127,8 +128,8 @@ class TestGenerator:
 
                             if chunk[-1] == ',':
                                 chunk = chunk[:-1]
-
-                            answers.add(CleanUtils.clean_commas(chunk))
+                            chunk = CleanUtils.clean_commas(chunk)
+                            answers.add(chunk)
                             gaped_sentence = sentence.replace(chunk, "_" * len(chunk))
                             while len(answers) < 4:
                                 candidate = self.replace_numbers(list(answers)[-1])
@@ -137,7 +138,7 @@ class TestGenerator:
                                 else:
                                     break
                             if len(answers) == 4:
-                                questions.append((gaped_sentence, list(answers)))
+                                questions.append((gaped_sentence, list(answers), chunk))
                                 candidates_removed = 1
                                 break
 
@@ -263,4 +264,3 @@ class TestGenerator:
                 is_changed = True
 
         return num if is_changed else False
-

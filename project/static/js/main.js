@@ -89,31 +89,53 @@ function handleFormSubmit() {
                 processData: false,
                 beforeSend: function () {
                     $('div#loader').show();
+                    $('button#generate').attr('disabled', true).css('cursor', 'not-allowed');
                 },
                 complete: function (data) {
                     if (data && data.status === 200) {
                         let bonuses = data.responseJSON['BONUSES'];
                         let gaps = data.responseJSON['GAPS'];
-                        let completion = data.responseJSON['COMPLETION'];
+                        let completions = data.responseJSON['COMPLETION'];
                         let questionIndex = 1;
                         let test = `<h1>TEST</h1>`;
                         let answers = `<h1>ANSWERS</h1>`;
-
                         for (let gap of gaps) {
                             test += `<h4>${questionIndex}. ${gap[0]}</h4>`;
                             answers += `<h4>${questionIndex} - ${gap[1].join(', ')}</h4>`;
                             questionIndex++;
                         }
 
+                        for (let completion of completions) {
+                            test += `<h4>${questionIndex}. ${completion[0]}</h4>`;
+                            for (let index in completion[1]) {
+                                test += `<div>${index}. ${completion[1][index]}</div>`;
+                            }
+                            answers += `<h4>${questionIndex} - ${completion[2]}</h4>`;
+                            questionIndex++;
+                        }
+
+                        if (bonuses) {
+                            test += "<h1>BONUS QUESTINOS</h1>";
+                        }
+
+                        for (let bonus of bonuses) {
+                            test += `<h4>${questionIndex}. ${bonus[1]}</h4>`;
+                            answers += `<h4>${questionIndex} - ${bonus[0]}</h4>`;
+                            questionIndex++;
+                        }
 
                         exportPDF(test + answers);
 
 
                     } else if (data && data.status === 400) {
                         let error = data.responseJSON['ERROR'];
-                        console.log(error);
+                        let errorHtml = $('div.form-group .error');
+                        errorHtml.text("Error: " + error);
+                        errorHtml.removeClass('hidden');
                     }
+
                     resetForm();
+                    $('button#generate').attr('disabled', false).css('cursor', 'pointer');
                 }
             });
         }
@@ -130,14 +152,18 @@ function handleUndoButton() {
 }
 
 function exportPDF(data) {
-    let margins = {top: 40, bottom: 60, left: 40, width: 400};
+    let margins = {top: 20, bottom: 20, left: 20, right: 20, width: 110};
     let doc = new jsPDF();
     doc.fromHTML(data, 15, 15, margins);
-    doc.save('sample-file.pdf');
+    let splitTitle = doc.splitTextToSize(data, 180);
+    doc.fromHTML(splitTitle);
+    doc.save('test-generator-project.pdf');
+
 }
 
 function clearErrors() {
     $('form div.error').addClass('hidden');
+    $('div.form-group .error').text('Error: At least one of the options above must be checked.');
 }
 
 function resetForm() {
