@@ -55,11 +55,14 @@ def generate_test():
 
     test_generator_object = TestGenerator(text, int(request.form[TEST_SIZE_INPUT_NAME]))
 
-    if GAP_INPUT_NAME in request.form.keys():
-        answer["GAPS"] = test_generator_object.extract_gaps()
+    is_gap = GAP_INPUT_NAME in request.form.keys()
+    is_completion = COMPLETION_INPUT_NAME in request.form.keys()
 
-    if COMPLETION_INPUT_NAME in request.form.keys():
-        answer["COMPLETION"] = test_generator_object.extract_sentence_completion()
+    if is_gap:
+        answer["GAPS"] = test_generator_object.extract_gaps(not is_completion)
+
+    if is_completion:
+        answer["COMPLETION"] = test_generator_object.extract_sentence_completion(not is_gap)
 
     answer["BONUSES"] = test_generator_object.extract_bonuses()
 

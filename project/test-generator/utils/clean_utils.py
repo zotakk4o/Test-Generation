@@ -1,4 +1,5 @@
 import string
+import re
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk import word_tokenize, sent_tokenize
@@ -48,3 +49,12 @@ class CleanUtils:
                 tokens = [" ".join(CleanUtils.stem_words(t.split())) for t in tokens]
 
         return tokens
+
+    @staticmethod
+    def clean_commas(num):
+        if re.search(r"[0-9,]+", num):
+            match = re.search(r"[0-9,]+", num)[0]
+            if match[-1] == ',':
+                match = match[:-1]
+            return num.replace(match, match.replace(',', ""))
+        return num

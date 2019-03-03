@@ -91,7 +91,28 @@ function handleFormSubmit() {
                     $('div#loader').show();
                 },
                 complete: function (data) {
-                    console.log(data);
+                    if (data && data.status === 200) {
+                        let bonuses = data.responseJSON['BONUSES'];
+                        let gaps = data.responseJSON['GAPS'];
+                        let completion = data.responseJSON['COMPLETION'];
+                        let questionIndex = 1;
+                        let test = `<h1>TEST</h1>`;
+                        let answers = `<h1>ANSWERS</h1>`;
+
+                        for (let gap of gaps) {
+                            test += `<h4>${questionIndex}. ${gap[0]}</h4>`;
+                            answers += `<h4>${questionIndex} - ${gap[1].join(', ')}</h4>`;
+                            questionIndex++;
+                        }
+
+
+                        exportPDF(test + answers);
+
+
+                    } else if (data && data.status === 400) {
+                        let error = data.responseJSON['ERROR'];
+                        console.log(error);
+                    }
                     resetForm();
                 }
             });
@@ -108,9 +129,10 @@ function handleUndoButton() {
     });
 }
 
-function exportPDF() {
+function exportPDF(data) {
+    let margins = {top: 40, bottom: 60, left: 40, width: 400};
     let doc = new jsPDF();
-    doc.fromHTML(data, 15, 15);
+    doc.fromHTML(data, 15, 15, margins);
     doc.save('sample-file.pdf');
 }
 
