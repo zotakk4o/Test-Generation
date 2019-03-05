@@ -1,7 +1,7 @@
 import nltk
 from nltk import tag
 from nltk import word_tokenize, sent_tokenize
-from utils.clean_utils import CleanUtils
+from generator.utils.clean_utils import CleanUtils
 from numpy import argsort
 from collections import Counter
 from random import choice

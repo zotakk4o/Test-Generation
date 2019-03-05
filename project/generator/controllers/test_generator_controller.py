@@ -1,10 +1,10 @@
 from flask import render_template, make_response, request, Blueprint
 from flask import current_app as app
-from utils.controller_utils import ControllerUtils
-from utils.file_utils import FileUtils
+from generator.utils.controller_utils import ControllerUtils
+from generator.utils.file_utils import FileUtils
 from nltk import sent_tokenize
-from constants.test_generator_controller_constants import *
-from test_generator import TestGenerator
+from generator.constants.test_generator_controller_constants import *
+from generator.test_generator import TestGenerator
 
 import os
 
