@@ -100,9 +100,11 @@ function handleFormSubmit() {
                         let test = `<h1>TEST</h1>`;
                         let answers = `<h1>ANSWERS</h1>`;
                         for (let gap of gaps) {
-                            test += `<h4>${questionIndex}. ${gap[0]}</h4>`;
-                            answers += `<h4>${questionIndex} - ${gap[1].join(', ')}</h4>`;
-                            questionIndex++;
+                            if (gap[1].length) {
+                                test += `<h4>${questionIndex}. ${gap[0]}</h4>`;
+                                answers += `<h4>${questionIndex} - ${gap[1].join(', ')}</h4>`;
+                                questionIndex++;
+                            }
                         }
 
                         for (let completion of completions) {

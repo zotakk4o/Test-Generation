@@ -1,6 +1,7 @@
 from xml.etree.cElementTree import XML
 import PyPDF2
 import zipfile
+import os
 
 
 class FileUtils:
@@ -23,7 +24,7 @@ class FileUtils:
                      if node.text]
             if texts:
                 paragraphs.append(''.join(texts))
-        return '\n'.join(paragraphs)
+        return os.linesep.join(paragraphs)
 
     @staticmethod
     def read_file(path):
