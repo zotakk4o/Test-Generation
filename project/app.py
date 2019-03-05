@@ -5,7 +5,7 @@ from generator.controllers.test_generator_controller import *
 import os
 
 app = Flask(__name__)
-app.config['UPLOAD_PATH'] = os.path.dirname(os.path.abspath(__file__)) + '/generator/uploads/'
+app.config['UPLOAD_PATH'] = os.path.dirname(os.path.abspath(__file__)) + f"{os.sep}generator{os.sep}uploads{os.sep}"
 app.register_blueprint(test_generator)
 
 if __name__ == '__main__':
