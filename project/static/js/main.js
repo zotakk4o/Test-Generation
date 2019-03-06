@@ -110,7 +110,7 @@ function handleFormSubmit() {
                         for (let completion of completions) {
                             test += `<h4>${questionIndex}. ${completion[0]}</h4>`;
                             for (let index in completion[1]) {
-                                test += `<div>${index}. ${completion[1][index]}</div>`;
+                                test += `<div>${parseInt(index) + 1}. ${completion[1][index]}</div>`;
                             }
                             answers += `<h4>${questionIndex} - ${completion[2]}</h4>`;
                             questionIndex++;
