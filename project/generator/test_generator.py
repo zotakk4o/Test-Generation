@@ -128,9 +128,10 @@ class TestGenerator:
 
                             if chunk[-1] == ',':
                                 chunk = chunk[:-1]
+
+                            gaped_sentence = sentence.replace(chunk, "_" * len(chunk))
                             chunk = CleanUtils.clean_commas(chunk)
                             answers.add(chunk)
-                            gaped_sentence = sentence.replace(chunk, "_" * len(chunk))
                             while len(answers) < 4:
                                 candidate = self.replace_numbers(list(answers)[-1])
                                 if candidate:
@@ -167,7 +168,7 @@ class TestGenerator:
         grammar = {
             "NBS": "{<IN><CD>}",
             "NM": "{<DT>*<JJ.*>*<NNP.*>+(<IN><DT>*<JJ.*>*<NNP.*>+)*}",
-            "NB": "{(<NBS><TO|CC|NM|IN>+<CD>)"
+            "NB": "{(<NBS><TO|CC|NM|IN>+<CD>*)"
                   "|((<IN><NM|,>+|<NM>)<CD><,>*<CD>*)}",
             "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)}",
             "DSC": "{<NM><VB.*>}",
@@ -240,10 +241,10 @@ class TestGenerator:
                 num = num.replace(month, choice(months))
                 is_changed = True
 
-        if re.findall(r'(?<![0-9])(\d+)(?![0-9])', num):
+        if re.findall(r'(?<!\d)(\d+)(?!\d)', num):
             change = choice(list(range(-10, -1)) + list(range(1, 10)))
             padding = 0
-            for number in re.finditer(r'(?<![0-9])(\d+)(?![0-9])', num):
+            for number in re.finditer(r'(?<!\d])(\d+)(?!\d)', num):
                 old_n = number.group().strip()
                 new_n = int(old_n)
                 if 0 < new_n <= 31:
