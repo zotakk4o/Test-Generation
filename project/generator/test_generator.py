@@ -166,9 +166,9 @@ class TestGenerator:
         tagged = tag.pos_tag(sentence)
 
         grammar = {
-            "NBS": "{<IN><CD>}",
+            "NBS": "{<IN><DT|JJ.*>*<CD>}",
             "NM": "{<DT>*<JJ.*>*<NNP.*>+(<IN><DT>*<JJ.*>*<NNP.*>+)*}",
-            "NB": "{(<NBS><TO|CC|NM|IN>+<CD>*)"
+            "NB": "{(<NBS><TO|CC|NM|IN|JJ.*>+<CD>*)"
                   "|((<IN><NM|,>+|<NM>)<CD><,>*<CD>*)}",
             "LNM": "{<NM>(<,>*<CC><NM>|<,><CC>*<NM>)}",
             "DSC": "{<NM><VB.*>}",
