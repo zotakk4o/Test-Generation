@@ -1,5 +1,5 @@
 from xml.etree.cElementTree import XML
-import PyPDF2
+import slate3k as slate
 import zipfile
 import os
 
@@ -40,9 +40,10 @@ class FileUtils:
 
     @staticmethod
     def get_pdf_text(path):
-        text = ""
-        pdf = PyPDF2.PdfFileReader(open(path, 'rb'))
-        for i in range(0, pdf.getNumPages()):
-            text += pdf.getPage(i).extractText()
-        text = text.replace("\xa0", " ").strip()
-        return text
+        result = ""
+        with open(path, 'rb') as file:
+            text_pages = slate.PDF(file)
+            for text in text_pages:
+                result += text.replace("\xa0", " ").strip()
+
+        return result

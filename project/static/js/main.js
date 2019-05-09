@@ -117,7 +117,7 @@ function handleFormSubmit() {
                         }
 
                         if (bonuses) {
-                            test += "<h1>BONUS QUESTINOS</h1>";
+                            test += "<h1>BONUS QUESTIONS</h1>";
                         }
 
                         for (let bonus of bonuses) {

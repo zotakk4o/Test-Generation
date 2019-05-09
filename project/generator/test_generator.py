@@ -117,7 +117,7 @@ class TestGenerator:
         for sentence, chunked_sentence in self.results:
             candidates_removed = 0
 
-            for chunk_name in ["NB", "NBS"]:  # prioritize List of Names over Names
+            for chunk_name in ["NB", "NBS"]:  # prioritize Periods over Single Numbers
                 if not completion_only and chunk_name == "NBS" and ("NM" or "LNM") in chunked_sentence.values():
                     break
                 if candidates_removed == 0:
