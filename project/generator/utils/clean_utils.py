@@ -5,7 +5,6 @@ from nltk.stem import PorterStemmer
 from nltk import word_tokenize, sent_tokenize
 from string import punctuation
 
-
 class CleanUtils:
 
     @staticmethod

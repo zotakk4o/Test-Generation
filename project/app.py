@@ -1,6 +1,6 @@
 from __future__ import print_function
 from flask import Flask
-from generator.controllers.test_generator_controller import *
+from project.generator.controllers.test_generator_controller import *
 
 import os
 

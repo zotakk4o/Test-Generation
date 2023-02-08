@@ -1,10 +1,10 @@
 from flask import render_template, make_response, request, Blueprint
 from flask import current_app as app
-from generator.utils.controller_utils import ControllerUtils
-from generator.utils.file_utils import FileUtils
+from project.generator.utils.controller_utils import ControllerUtils
+from project.generator.utils.file_utils import FileUtils
 from nltk import sent_tokenize
-from generator.constants.test_generator_controller_constants import *
-from generator.test_generator import TestGenerator
+from project.generator.constants.test_generator_controller_constants import *
+from project.generator.test_generator import TestGenerator
 
 import os
 
@@ -35,7 +35,7 @@ def generate_test():
         'docx': FileUtils.get_docx_text,
         'default': FileUtils.read_file
     }
-    if request.files:
+    if request.files[FILE_UPLOAD_NAME].filename != '':
         file = request.files[FILE_UPLOAD_NAME]
         file_name, file_extension = FileUtils.get_file_config(file)
         file_path = os.path.join(app.config['UPLOAD_PATH'], file_name)
