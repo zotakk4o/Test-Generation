@@ -22,6 +22,13 @@ class TestGenerator:
 
     @staticmethod
     def is_there_tag(sentence, search):
+        """
+        Looks for a given part of speach tag in a sentence
+
+        :param sentence: the sentence to search
+        :param search: the pos tag to search for
+        :return: True/False
+        """
         items = tag.pos_tag(word_tokenize(sentence))
         items = [val for key, val in items]
         for item in items:
@@ -31,6 +38,11 @@ class TestGenerator:
 
     @staticmethod
     def build_graph(nodes):
+        """
+        Constructs a graph with nodes the sentences and edge weights the Levenshtein distance of two sentences
+        :param nodes: array of clean sentences
+        :return: graph for Textrank
+        """
         gr = nx.Graph()
         gr.add_nodes_from(nodes)
         node_pairs = list(itertools.combinations(nodes, 2))
@@ -44,29 +56,49 @@ class TestGenerator:
         return gr
 
     def extract_sentences(self, text):
+        """
+        Ranks the input text sentences by the Textrank algorithm
+
+        :param text: the text to rank by Textrank
+        :return: array of ranked sentences in descending order of importance
+        """
         sentence_tokens = CleanUtils.clean_text(text)
         self.sentences = [re.sub("[(\[{][^)}\]]*[)\]}]", "", sent.replace(os.linesep, " ")) for sent in
                           CleanUtils.tokenize_sentences(text)]
         graph = self.build_graph(sentence_tokens)
 
         calculated_page_rank = nx.pagerank(graph, weight='weight')
-        indices = argsort(list(calculated_page_rank.values()))[::-1]
+        indices = argsort(list(calculated_page_rank.values()))
 
         ranked_sentences = [x for _, x in sorted(zip(indices, self.sentences))]
 
         return ranked_sentences
 
+    def order_gaps(self, haystack, chunks, delimiter):
+        """
+        Helper function to retrieve position of description and the description itself
+
+        :param haystack: a sentence with description
+        :param chunks: list of descriptions
+        :param delimiter: delimiter used to mark the descriptions
+        :return:
+        """
+        chunks = list(filter(None, chunks.split(delimiter)))
+        indexed = {}
+        for gap in chunks:
+            if gap in haystack:
+                indexed[haystack.index(gap)] = gap
+
+        indexed = sorted(indexed.items(), key=operator.itemgetter(0))
+        return [gap for i, gap in indexed]
+
     def extract_gaps(self, gaps_only=True):
+        """
+        Extracts important information, leaving gaps in their place
 
-        def order_gaps(haystack, chunks, delimiter):
-            chunks = list(filter(None, chunks.split(delimiter)))
-            indexed = {}
-            for gap in chunks:
-                if gap in haystack:
-                    indexed[haystack.index(gap)] = gap
-
-            indexed = sorted(indexed.items(), key=operator.itemgetter(0))
-            return [gap for i, gap in indexed]
+        :param gaps_only: whether the sentences are going to be processed for sentence_completion or not
+        :return: (question, answer) pairs
+        """
 
         gaps = []
         for sentence, chunked_sentence in self.results:
@@ -95,12 +127,17 @@ class TestGenerator:
                         chunks_removed += chunk + chunks_removed_delimiter
 
             if len(chunks_removed):
-                chunks_removed = order_gaps(original_sentence, chunks_removed, chunks_removed_delimiter)
+                chunks_removed = self.order_gaps(original_sentence, chunks_removed, chunks_removed_delimiter)
                 gaps.append((sentence, chunks_removed))
 
         return gaps
 
     def extract_bonuses(self):
+        """
+        Extracts bonus questions from a sentence. A bonus question is a sentence with a description phrase "Steve is pretty" -> "_ pretty"
+
+        :return: bonuse questions
+        """
         bonuses = []
         for sentence, chunked_sentence in self.results:
             dsc_phrases = self.extract_description_phrases(chunked_sentence)
@@ -112,6 +149,11 @@ class TestGenerator:
         return bonuses
 
     def extract_sentence_completion(self, completion_only=True):
+        """
+        Extracts the important information from a sentence for sentence completion - 4 possible answers
+        :param completion_only: whether the sentences are going to be processed for fill in the gaps questions
+        :return: (question, answer) pairs
+        """
         questions = []
 
         for sentence, chunked_sentence in self.results:
@@ -146,6 +188,13 @@ class TestGenerator:
         return questions
 
     def prepare_test_sentences(self, text, percentage):
+        """
+        Starts the whole algorithm for test generation
+
+        :param text: text to process
+        :param percentage: what part of the ranked sentences to take for the test
+        :return: test sentences
+        """
         summary_sentences = self.extract_sentences(text)
         test_size = int(len(summary_sentences) * percentage / 100)
         indexes = [self.sentences.index(sent) for sent in summary_sentences[:test_size]]
@@ -162,6 +211,12 @@ class TestGenerator:
         return results
 
     def chunk_sentence(self, sentence):
+        """
+        Converts sentences into words and tags the words with their corresponding POS tag
+
+        :param sentence: the sentence to process
+        :return: the tagged sentence words or False if none
+        """
         sentence = word_tokenize(sentence)
         tagged = tag.pos_tag(sentence)
 
@@ -189,6 +244,11 @@ class TestGenerator:
         return False if not results else results
 
     def extract_description_phrases(self, chunked_sentence):
+        """
+        Extracts descriptions -> Steve is pretty -> (Steve is, pretty)
+        :param chunked_sentence: the POS tagged sentence
+        :return: (object of description, description) pairs
+        """
         chunks = []
         for chunk, pos_tag in chunked_sentence.items():
             if pos_tag == "DSCS":
@@ -203,6 +263,12 @@ class TestGenerator:
         return chunks
 
     def extract_descriptions(self, description_chunks):
+        """
+        Helper function used to extract descriptions and objects of the description
+
+        :param description_chunks:
+        :return: all descriptions and their corresponding objects in a sentence
+        """
         objects_of_description = []
         descriptions = []
         sentence = description_chunks[0]
@@ -223,6 +289,12 @@ class TestGenerator:
 
     @staticmethod
     def replace_numbers(num):
+        """
+        Generates random valid dates/ranges for sentence completion that are close to the answer
+
+        :param num: the date/range to tweak
+        :return: changed version of the num
+        """
         is_changed = False
         num = CleanUtils.clean_commas(num)
 
@@ -254,7 +326,8 @@ class TestGenerator:
                     new_n = choice(change_date)
                 else:
                     new_n += change
-                num = (num[:number.start() + padding] + f"{str(new_n)}" + num[number.end() + padding:]).replace(" ,", ",").strip()
+                num = (num[:number.start() + padding] + f"{str(new_n)}" + num[number.end() + padding:]).replace(" ,",
+                                                                                                                ",").strip()
                 padding = len(str(new_n)) - len(str(old_n))
                 is_changed = True
 

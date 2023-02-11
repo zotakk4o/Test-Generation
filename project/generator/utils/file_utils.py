@@ -5,6 +5,9 @@ import os
 
 
 class FileUtils:
+    """
+    Class for reading different type of text files - doc(x), txt and pdf
+    """
     @staticmethod
     def get_docx_text(path):
         schemas = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'

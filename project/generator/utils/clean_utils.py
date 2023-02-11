@@ -6,6 +6,10 @@ from nltk import word_tokenize, sent_tokenize
 from string import punctuation
 
 class CleanUtils:
+    """
+    A class used to remove stopwords from text, tokenize text into sentences and then into words,
+    stem words, removing their suffixes and remove punctuation
+    """
 
     @staticmethod
     def remove_stopwords(text):
